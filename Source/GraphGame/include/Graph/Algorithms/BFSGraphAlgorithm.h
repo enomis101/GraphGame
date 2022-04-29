@@ -31,12 +31,12 @@ protected:
 	FLinearColor FoundColor;
 
 protected:
-	TQueue<AGameGraphNode*> Queue;
-	TSet<AGameGraphNode*> ExploredNodes;
-	//TSet<AGameGraphNode*> ProcessedNodes;
+	TQueue<UGraphNode*> Queue;
+	TSet<UGraphNode*> ExploredNodes;
+	//TSet<UGraphNode*> ProcessedNodes;
 
 	UPROPERTY(Transient)
-	AGameGraphNode* FoundNode;
+	UGraphNode* FoundNode;
 
 	int32 Target;
 };

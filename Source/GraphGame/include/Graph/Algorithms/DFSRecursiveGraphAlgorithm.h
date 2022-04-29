@@ -13,19 +13,19 @@ class GRAPHGAME_API UDFSRecursiveObject : public URecursiveObject
 	GENERATED_BODY()
 
 public:
-	void Init(AGameGraphNode* InRootNode);
+	void Init(UGraphNode* InRootNode);
 
 	virtual bool Step() override;
 	virtual bool HasFinished() override { return CheckPoint == 2; }
 	virtual void BeginDestroy() override;
 protected:
-	void Recurse(AGameGraphNode* RootNode);
+	void Recurse(UGraphNode* RootNode);
 
 	UPROPERTY(Transient)
 	UDFSRecursiveGraphAlgorithm* Algorithm = nullptr;
 
 	UPROPERTY(Transient)
-	AGameGraphNode* RootNode;
+	UGraphNode* RootNode;
 
 	int32 i = 0;
 };
@@ -41,11 +41,11 @@ class GRAPHGAME_API UDFSRecursiveGraphAlgorithm : public URecursiveGraphAlgorith
 public:
 	virtual void Start(UGraphAlgorithmParams* InParams) override;
 	virtual void End() override;
-	bool IsNodeExplored(AGameGraphNode* InNode);
-	void SetNodeExplored(AGameGraphNode* InNode);
+	bool IsNodeExplored(UGraphNode* InNode);
+	void SetNodeExplored(UGraphNode* InNode);
 
-	void SetNodeProcessed(AGameGraphNode* InNode);
-	void SetNodeFound(AGameGraphNode* InNode);
+	void SetNodeProcessed(UGraphNode* InNode);
+	void SetNodeFound(UGraphNode* InNode);
 	int32 Target;
 
 protected:
@@ -58,10 +58,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 		FLinearColor FoundColor;
 
-	TSet<AGameGraphNode*> ExploredNodes;
+	TSet<UGraphNode*> ExploredNodes;
 
 	UPROPERTY(Transient)
-	AGameGraphNode* FoundNode;
+	UGraphNode* FoundNode;
 
 	
 };

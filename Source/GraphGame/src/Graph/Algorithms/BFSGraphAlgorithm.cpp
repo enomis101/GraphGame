@@ -25,7 +25,7 @@
 void UBFSGraphAlgorithm::Start(UGraphAlgorithmParams* InParams)
 {
 	//Init Params
-	AGameGraphNode* RootNode = nullptr;
+	UGraphNode* RootNode = nullptr;
 	Target = -1;
 	USearchGraphAlgorithmParams* Params = Cast< USearchGraphAlgorithmParams>(InParams);
 	if (Params)
@@ -54,7 +54,7 @@ bool UBFSGraphAlgorithm::Step()
 {
 	if (!Queue.IsEmpty())
 	{
-		AGameGraphNode* CurrNode;
+		UGraphNode* CurrNode;
 
 		ensure(Queue.Dequeue(CurrNode));
 		ensure(CurrNode);
@@ -71,7 +71,7 @@ bool UBFSGraphAlgorithm::Step()
 		}
 		for (int32 NearIndex : CurrNode->Edges)
 		{
-			AGameGraphNode* AdjNode = Graph->Nodes[NearIndex];
+			UGraphNode* AdjNode = Graph->Nodes[NearIndex];
 			ensure(AdjNode);
 			if (!ExploredNodes.Contains(AdjNode))
 			{

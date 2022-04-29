@@ -8,7 +8,7 @@
 #include "DijkstraGraphAlgorithm.generated.h"
 
 class UGraphAlgorithmParams;
-class AGameGraphNode;
+class UGraphNode;
 
 
 

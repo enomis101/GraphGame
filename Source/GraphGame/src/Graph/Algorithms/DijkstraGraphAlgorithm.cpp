@@ -65,7 +65,7 @@ bool UDijkstraGraphAlgorithm::Step()
 	//	return true;
 	//}
 	SetNodeProcessed(CurrNodeIndex);
-	AGameGraphNode* CurrNode = Graph->Nodes[CurrNodeIndex];
+	UGraphNode* CurrNode = Graph->Nodes[CurrNodeIndex];
 	for (int32 NearNodeIndex : CurrNode->Edges)
 	{
 		Relax(CurrNodeIndex, NearNodeIndex);

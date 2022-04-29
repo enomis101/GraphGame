@@ -29,7 +29,7 @@ public:
 	void OnMouseClick();
 	void OnMouseReleased();
 	FORCEINLINE UCameraComponent* GetCameraComponent() { return CameraComponent; }
-	FORCEINLINE	AGameGraph* GetGameGraph() { return GameGraph; }
+	FORCEINLINE	UGraph* GetGameGraph() { return GameGraph; }
 	//Algorithms
 	void StartAlgorithm(UGraphAlgorithmParams* InParams);
 	void StepAlgorithm();
@@ -55,7 +55,7 @@ protected:
 	FVector2D FOVRange = FVector2D(60.f,120.f);
 
 	UPROPERTY(EditAnywhere , Category = GameGraph)
-	TSubclassOf<AGameGraph> GameGraphClass;
+	TSubclassOf<UGraph> GameGraphClass;
 
 	UPROPERTY(EditAnywhere, Category = GameGraph)
 	TSubclassOf<UGraph> GameGraphClass2;
@@ -75,10 +75,7 @@ private:
 	ACameraActor* GameCamera;
 
 	UPROPERTY(Transient)
-	AGameGraph* GameGraph;
-
-	UPROPERTY(Transient)
-	UGraph* GameGraph2;
+	UGraph* GameGraph;
 
 	UPROPERTY(Transient)
 	UUserWidget* Menu;

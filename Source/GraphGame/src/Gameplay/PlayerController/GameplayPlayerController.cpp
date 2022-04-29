@@ -71,17 +71,17 @@ void AGameplayPlayerController::ZoomCamera(float AxisValue)
 
 void AGameplayPlayerController::OnMouseClick()
 {
-	if (GameGraph2)
+	if (GameGraph)
 	{
-		GameGraph2->OnMouseClick();
+		GameGraph->OnMouseClick();
 	}
 }
 
 void AGameplayPlayerController::OnMouseReleased()
 {
-	if (GameGraph2)
+	if (GameGraph)
 	{
-		GameGraph2->OnMouseReleased();
+		GameGraph->OnMouseReleased();
 	}
 }
 
@@ -180,15 +180,10 @@ void AGameplayPlayerController::BeginPlay()
 
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.Owner = this;
-	GameGraph = GetWorld()->SpawnActor<AGameGraph>(GameGraphClass, SpawnParameters);
+
+	GameGraph = NewObject<UGraph>(this, GameGraphClass2);
 	if (GameGraph)
 	{
-		GameGraph->SetActorHiddenInGame(true);
-	}
-
-	GameGraph2 = NewObject<UGraph>(this, GameGraphClass2);
-	if (GameGraph2)
-	{
-		GameGraph2->Init();
+		GameGraph->Init();
 	}
 }

@@ -96,10 +96,10 @@ void UGameMenuWidget::OnCloseButtonClicked()
 void UGameMenuWidget::OnResetGraphButtonClicked()
 {
 	AGameplayPlayerController* PC = GetOwningPlayer<AGameplayPlayerController>();
-	AGameGraph* Graph = PC ? PC->GetGameGraph() : nullptr;
+	UGraph* Graph = PC ? PC->GetGameGraph() : nullptr;
 	if (Graph)
 	{
-		Graph->Reset();
+		Graph->ResetAppearance();
 	}
 }
 

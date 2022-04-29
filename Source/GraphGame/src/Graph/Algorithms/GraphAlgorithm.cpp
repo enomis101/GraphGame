@@ -3,12 +3,12 @@
 
 #include "Graph/Algorithms/GraphAlgorithm.h"
 
-void UGraphAlgorithm::Init(AGameGraph* InGraph)
+void UGraphAlgorithm::Init(UGraph* InGraph)
 {
 	Graph = InGraph;
 }
 
-void UGraphAlgorithm::SelectActiveNode(AGameGraphNode* Node)
+void UGraphAlgorithm::SelectActiveNode(UGraphNode* Node)
 {
 
 }

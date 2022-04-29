@@ -6,8 +6,8 @@
 #include "UObject/NoExportTypes.h"
 #include "GraphAlgorithm.generated.h"
 
-class AGameGraph;
-class AGameGraphNode;
+class UGraph;
+class UGraphNode;
 class UGraphAlgorithmParams;
 
 
@@ -20,14 +20,14 @@ class GRAPHGAME_API UGraphAlgorithm : public UObject
 	GENERATED_BODY()
 
 public:
-	virtual void Init(AGameGraph* InGraph);
+	virtual void Init(UGraph* InGraph);
 
 	virtual void Start(UGraphAlgorithmParams* InParams) PURE_VIRTUAL(UGraphAlgorithm::Start, );
 	virtual bool Step() PURE_VIRTUAL(UGraphAlgorithm::Step, return false;);
 	virtual void End() PURE_VIRTUAL(UGraphAlgorithm::End, );
 
-	virtual void SelectActiveNode(AGameGraphNode* Node);
+	virtual void SelectActiveNode(UGraphNode* Node);
 
 	UPROPERTY(Transient)
-	AGameGraph* Graph;
+	UGraph* Graph;
 };

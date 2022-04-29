@@ -5,7 +5,7 @@
 #include "Graph/GameGraph.h"
 #pragma optimize("",off)
 
-void UDFSRecursiveObject::Init(AGameGraphNode* InRootNode)
+void UDFSRecursiveObject::Init(UGraphNode* InRootNode)
 {
 	RootNode = InRootNode;
 	CheckPoint = 0;
@@ -41,7 +41,7 @@ bool UDFSRecursiveObject::Step()
 		while (i < RootNode->Edges.Num())
 		{
 			int32 NearIndex = RootNode->Edges[i];
-			AGameGraphNode* NearNode = Algorithm->Graph->Nodes[NearIndex];
+			UGraphNode* NearNode = Algorithm->Graph->Nodes[NearIndex];
 			i++;
 			if (!Algorithm->IsNodeExplored(NearNode))
 			{
@@ -61,7 +61,7 @@ void UDFSRecursiveObject::BeginDestroy()
 
 }
 
-void UDFSRecursiveObject::Recurse(AGameGraphNode* InRootNode)
+void UDFSRecursiveObject::Recurse(UGraphNode* InRootNode)
 {
 	UDFSRecursiveObject* NewRecObject = NewObject< UDFSRecursiveObject>(Algorithm, UDFSRecursiveObject::StaticClass());
 	if (NewRecObject)
@@ -75,7 +75,7 @@ void UDFSRecursiveObject::Recurse(AGameGraphNode* InRootNode)
 void UDFSRecursiveGraphAlgorithm::Start(UGraphAlgorithmParams* InParams)
 {
 	//Init Params
-	AGameGraphNode* RootNode = nullptr;
+	UGraphNode* RootNode = nullptr;
 	Target = -1;
 	USearchGraphAlgorithmParams* Params = Cast< USearchGraphAlgorithmParams>(InParams);
 	if (Params)
@@ -119,23 +119,23 @@ void UDFSRecursiveGraphAlgorithm::End()
 	Stack.Empty();
 }
 
-bool UDFSRecursiveGraphAlgorithm::IsNodeExplored(AGameGraphNode* InNode)
+bool UDFSRecursiveGraphAlgorithm::IsNodeExplored(UGraphNode* InNode)
 {
 	return ExploredNodes.Contains(InNode);
 }
 
-void UDFSRecursiveGraphAlgorithm::SetNodeExplored(AGameGraphNode* InNode)
+void UDFSRecursiveGraphAlgorithm::SetNodeExplored(UGraphNode* InNode)
 {
 	ExploredNodes.Add(InNode);
 	InNode->SetColor(ExploredColor);
 }
 
-void UDFSRecursiveGraphAlgorithm::SetNodeProcessed(AGameGraphNode* InNode)
+void UDFSRecursiveGraphAlgorithm::SetNodeProcessed(UGraphNode* InNode)
 {
 	InNode->SetColor(ProcessedColor);
 }
 
-void UDFSRecursiveGraphAlgorithm::SetNodeFound(AGameGraphNode* InNode)
+void UDFSRecursiveGraphAlgorithm::SetNodeFound(UGraphNode* InNode)
 {
 	FoundNode = InNode;
 }

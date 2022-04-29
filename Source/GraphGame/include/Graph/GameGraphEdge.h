@@ -8,78 +8,10 @@
 #include "GameGraphEdge.generated.h"
 
 struct FPropertyChangedEvent;
-class AGameGraphNode;
+class UGraphNode;
 class UStaticMeshComponent;
 class UTextRenderComponent;
 class UGraphNode;
-
-UCLASS()
-class GRAPHGAME_API AGameGraphEdge : public AActor
-{
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AGameGraphEdge();
-
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY(Transient)
-	AGameGraphNode* FirstNode = nullptr;
-
-	UPROPERTY(Transient)
-	AGameGraphNode* SecondNode = nullptr;
-
-	void Init(AGameGraphNode* N1, AGameGraphNode* N2, int32 InId);
-
-	void OffsetRight();
-	void ResetOffset();
-
-	FString GetEdgeName();
-	float GetWeight() { return Length; }
-	void SetSelected();
-	void Reset();
-
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	UPROPERTY(EditAnywhere, Category = GameGraph)
-	float ZScale = 20.f;
-
-	UPROPERTY(EditAnywhere, Category = GameGraph)
-	float RightOffsetAmount = 20.f;
-
-	UPROPERTY(EditAnywhere, Category = GameGraph)
-	FName SelParameterName = "Selected";
-
-	UPROPERTY(VisibleAnywhere)
-	bool bBidirectional = false;
-private:
-	void SetEdgeName();
-	void InitMeshes();
-
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* ShaftMesh;
-
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* HeadMesh;
-
-	UPROPERTY(EditAnywhere)
-	UTextRenderComponent* TextComponent;
-
-	UPROPERTY(Transient)
-	UMaterialInstanceDynamic* Material;
-
-	FVector InitialWorldLocation;
-	
-	int32 Id;
-	float Length;
-};
-
-
 
 UCLASS(BlueprintType, Blueprintable)
 class GRAPHGAME_API UGraphEdge : public UObject

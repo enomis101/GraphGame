@@ -3,7 +3,7 @@
 #include "Graph/GraphType.h"
 #include "GraphAlgorithmParams.generated.h"
 
-class AGameGraphNode;
+class UGraphNode;
 
 UCLASS()
 class UGraphAlgorithmParams : public UObject

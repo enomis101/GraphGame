@@ -20,7 +20,7 @@ public:
 	virtual bool Step();
 	virtual void End();
 
-	void SetNodeExplored(AGameGraphNode* InNode);
+	void SetNodeExplored(UGraphNode* InNode);
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	FLinearColor ExploredColor;
@@ -32,11 +32,11 @@ protected:
 	FLinearColor FoundColor;
 
 protected:
-	TArray<AGameGraphNode*> Stack;
-	TSet<AGameGraphNode*> ExploredNodes;
+	TArray<UGraphNode*> Stack;
+	TSet<UGraphNode*> ExploredNodes;
 
 	UPROPERTY(Transient)
-	AGameGraphNode* FoundNode;
+	UGraphNode* FoundNode;
 
 	int32 Target;
 };

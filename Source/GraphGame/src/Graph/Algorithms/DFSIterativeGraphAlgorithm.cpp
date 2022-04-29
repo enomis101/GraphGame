@@ -33,7 +33,7 @@ bool DFS(Node root, Node target) {
 void UDFSIterativeGraphAlgorithm::Start(UGraphAlgorithmParams* InParams)
 {
 	//Init Params
-	AGameGraphNode* RootNode = nullptr;
+	UGraphNode* RootNode = nullptr;
 	Target = -1;
 	USearchGraphAlgorithmParams* Params = Cast< USearchGraphAlgorithmParams>(InParams);
 	if (Params)
@@ -61,7 +61,7 @@ bool UDFSIterativeGraphAlgorithm::Step()
 	if (Stack.Num() != 0)
 	{
 		int32 Top = Stack.Num() - 1;
-		AGameGraphNode* CurrNode = Stack[Top];
+		UGraphNode* CurrNode = Stack[Top];
 		Stack.RemoveAt(Top);
 		ensure(CurrNode);
 
@@ -78,7 +78,7 @@ bool UDFSIterativeGraphAlgorithm::Step()
 		for (int32 i = LastIndex;  i >= 0; i--)
 		{
 			int32 AdjIndex = CurrNode->Edges[i];
-			AGameGraphNode* AdjNode = Graph->Nodes[AdjIndex];
+			UGraphNode* AdjNode = Graph->Nodes[AdjIndex];
 			ensure(AdjNode);
 			if (!ExploredNodes.Contains(AdjNode))
 			{
@@ -106,7 +106,7 @@ void UDFSIterativeGraphAlgorithm::End()
 	}
 }
 
-void UDFSIterativeGraphAlgorithm::SetNodeExplored(AGameGraphNode* InNode)
+void UDFSIterativeGraphAlgorithm::SetNodeExplored(UGraphNode* InNode)
 {
 	ExploredNodes.Add(InNode);
 	InNode->SetColor(ExploredColor);
