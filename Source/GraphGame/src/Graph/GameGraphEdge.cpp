@@ -26,10 +26,14 @@
 
 void UGraphEdge::Init(UGraphNode* N1, UGraphNode* N2, int32 i)
 {
-	FirstNode = N1;
-	SecondNode = N2;
+	if (N1 && N2 && i >= 0)
+	{
+		FirstNode = N1;
+		SecondNode = N2;
+		Id = i;
+	}
 
-	Id = i;
+
 	MeshActor = SpawnAndPlaceMeshActor();
 	if (MeshActor)
 	{

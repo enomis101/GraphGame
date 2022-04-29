@@ -29,6 +29,62 @@ void UGraph::Init()
 
 	PC = Cast<AGameplayPlayerController>(GetOuter());
 	CameraComponent = PC ? PC->GetCameraComponent() : nullptr;
+
+	for (UGraphNode* Node : Nodes)
+	{
+		Node->Init();
+	}
+
+	EdgeMap.Empty();
+	for (UGraphEdge* Edge : Edges)
+	{
+		Edge->Init();
+		if (bIsDirected)
+		{
+			if (!EdgeMap.Contains(Edge->FirstNode))
+			{
+				EdgeMap.Add(Edge->FirstNode, TMap<UGraphNode*, UGraphEdge*>());
+
+			}
+			EdgeMap[Edge->FirstNode].Add(Edge->SecondNode, Edge);
+			//If the edge is parallel to another one, offset it right
+			if (Edge->SecondNode->ContainsEdge(Edge->FirstNode->GetId()))
+			{
+				Edge->OffsetRight();
+			}
+		}
+		else
+		{
+			if (!EdgeMap.Contains(Edge->FirstNode))
+			{
+				EdgeMap.Add(Edge->FirstNode, TMap<UGraphNode*, UGraphEdge*>());
+
+			}
+			EdgeMap[Edge->FirstNode].Add(Edge->SecondNode, Edge);
+			if (!EdgeMap.Contains(Edge->SecondNode))
+			{
+				EdgeMap.Add(Edge->SecondNode, TMap<UGraphNode*, UGraphEdge*>());
+
+			}
+			EdgeMap[Edge->SecondNode].Add(Edge->FirstNode, Edge);
+		}
+	}
+}
+
+void UGraph::DeInit()
+{
+
+	for (UGraphNode* Node : Nodes)
+	{
+		Node->DeInit();
+	}
+
+	for (UGraphEdge* Edge : Edges)
+	{
+		Edge->DeInit();
+	}
+
+	EdgeMap.Empty();
 }
 
 void UGraph::OnMouseClick()
@@ -110,7 +166,7 @@ void UGraph::ResetAppearance()
 		Node->ResetAppearance();
 	}
 
-	for (UGraphEdge* Edge : EdgeList)
+	for (UGraphEdge* Edge : Edges)
 	{
 		Edge->ResetAppearance();
 	}
@@ -164,8 +220,8 @@ UGraphEdge* UGraph::GetEdge(int32 Node1Index, int32 Node2Index)
 
 UGraphEdge* UGraph::GetEdge(UGraphNode* Node1, UGraphNode* Node2)
 {
-	ensure(Edges.Contains(Node1) && Edges[Node1].Contains(Node2));
-	return Edges[Node1][Node2];
+	ensure(EdgeMap.Contains(Node1) && EdgeMap[Node1].Contains(Node2));
+	return EdgeMap[Node1][Node2];
 }
 
 UGraphNode* UGraph::GetNodeAtIndex(int32 Index, bool bFallbackLastClicked /*= false*/)
@@ -231,8 +287,7 @@ UGraphNode* UGraph::SpawnNewNode(const FVector& SpawnLocation)
 	UGraphNode* NewNode = NewObject<UGraphNode>(this, NodeClass);
 	if (NewNode)
 	{
-		NewNode->Init(nNodes, SpawnLocation);
-		nNodes++;
+		NewNode->Init(Nodes.Num(), SpawnLocation);
 	}
 	return NewNode;
 }
@@ -262,22 +317,21 @@ void UGraph::SpawnDirectedEdge(UGraphNode* Node1, UGraphNode* Node2)
 
 	if (Edge)
 	{
-		Edge->Init(Node1, Node2, nEdges);
-		nEdges++;
-		EdgeList.Add(Edge);
+		Edge->Init(Node1, Node2, Edges.Num());
+		Edges.Add(Edge);
 		Node1->AddEdge(Node2Index);
-		if (!Edges.Contains(Node1))
+		if (!EdgeMap.Contains(Node1))
 		{
-			Edges.Add(Node1, TMap<UGraphNode*, UGraphEdge*>());
+			EdgeMap.Add(Node1, TMap<UGraphNode*, UGraphEdge*>());
 
 		}
-		Edges[Node1].Add(Node2, Edge);
+		EdgeMap[Node1].Add(Node2, Edge);
 	}
 
 	if (Node2->ContainsEdge(Node1Index))
 	{
-		ensure(Edges.Contains(Node2));
-		UGraphEdge* OtherEdge = Edges[Node2][Node1];
+		ensure(EdgeMap.Contains(Node2));
+		UGraphEdge* OtherEdge = EdgeMap[Node2][Node1];
 		ensure(OtherEdge);
 		Edge->OffsetRight();
 		OtherEdge->OffsetRight();
@@ -298,24 +352,23 @@ void UGraph::SpawnUnDirectedEdge(UGraphNode* Node1, UGraphNode* Node2)
 
 	if (Edge)
 	{
-		Edge->Init(Node1, Node2, nEdges);
-		nEdges++;
-		EdgeList.Add(Edge);
+		Edge->Init(Node1, Node2, Edges.Num());
+		Edges.Add(Edge);
 
 		Node1->AddEdge(Node2Index);
 		Node2->AddEdge(Node1Index);
-		if (!Edges.Contains(Node1))
+		if (!EdgeMap.Contains(Node1))
 		{
-			Edges.Add(Node1, TMap<UGraphNode*, UGraphEdge*>());
+			EdgeMap.Add(Node1, TMap<UGraphNode*, UGraphEdge*>());
 
 		}
-		Edges[Node1].Add(Node2, Edge);
-		if (!Edges.Contains(Node2))
+		EdgeMap[Node1].Add(Node2, Edge);
+		if (!EdgeMap.Contains(Node2))
 		{
-			Edges.Add(Node2, TMap<UGraphNode*, UGraphEdge*>());
+			EdgeMap.Add(Node2, TMap<UGraphNode*, UGraphEdge*>());
 
 		}
-		Edges[Node2].Add(Node1, Edge);
+		EdgeMap[Node2].Add(Node1, Edge);
 	}
 
 }
@@ -359,7 +412,7 @@ void UGraph::PrintGraph()
 		for (int32 OtherNodeIndex : Node->Edges)
 		{
 			UGraphNode* OtherNode = Nodes[OtherNodeIndex];
-			UGraphEdge* Edge = Edges[Node][OtherNode];
+			UGraphEdge* Edge = EdgeMap[Node][OtherNode];
 			str += "[" + OtherNode->GetNodeName() + ", " + Edge->GetEdgeName() + "]";
 		}
 		str += "\n";

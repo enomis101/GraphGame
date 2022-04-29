@@ -12,6 +12,7 @@ class UComboBoxString;
 class UAlgorithmInputWidget;
 class UCanvasPanel;
 class UCheckBox;
+class UEditableText;
 
 /**
  * 
@@ -53,6 +54,28 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UCheckBox* GraphTypeCheckBox = nullptr;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* SaveCurrGraphButton;
+	UFUNCTION()
+	void OnSaveCurrGraphButtonClicked();
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* LoadGraphButton;
+	UFUNCTION()
+	void OnLoadGraphButtonClicked();
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* CreateNewGraphButton;
+	UFUNCTION()
+	void OnCreateNewGraphButtonClicked();
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* RemoveCurrentGraphButton;
+	UFUNCTION()
+	void OnRemoveCurrentGraphButtonClicked();
+
+	UPROPERTY(meta = (BindWidget))
+	UEditableText* GraphNameText;
 private:
 	TArray< UAlgorithmInputWidget*> AlgoInputWidgets;
 

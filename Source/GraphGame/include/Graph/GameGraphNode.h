@@ -29,6 +29,7 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	float Radius = 5.f;
 
+	UPROPERTY(SaveGame)
 	TArray<int32> Edges;
 
 	FORCEINLINE void SetSpawnLocation(FVector InSpawnLocation) { SpawnLocation = InSpawnLocation; }
@@ -69,9 +70,14 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Appearance)
 	TSubclassOf<AGraphNodeMeshActor> MeshClass;
 
+	UPROPERTY(SaveGame)
+		FVector SpawnLocation;
+
+	UPROPERTY(SaveGame)
+		int32 Id;
+
 private:
 	FLinearColor CurrentColor;
-	FVector SpawnLocation;
 
 	UPROPERTY(Transient)
 	UMaterialInstanceDynamic* Material;
@@ -81,8 +87,6 @@ private:
 
 	UPROPERTY(Transient)
 	AGraphNodeMeshActor* MeshActor;
-
-	int32 Id;
 
 
 	void InitMesh();

@@ -11,6 +11,7 @@ class UCameraComponent;
 class ACameraActor;
 class UDebugDataAsset;
 class UGraph;
+class UGraphSaveManager;
 
 /**
  * 
@@ -39,8 +40,22 @@ public:
 	void SwitchToGame();
 
 	void StartAlgorithmFromMenu(UGraphAlgorithmParams* AlgoParams);
+
+	FORCEINLINE UGraphSaveManager* GetGraphSaveManager() { return GraphSaveManager; }
+
+	//SAVE
+	void SaveGame();
+	void LoadGame();
+
+	void SaveCurrentGraphAs(FName GraphName);
+	void LoadGraph(FName GraphName);
+
+	void RemoveCurrentGraph();
+	void CreateNewGraph();
+
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 	UPROPERTY(EditAnywhere)
 	float CameraSpeed = 3.f;
@@ -54,18 +69,18 @@ protected:
 	UPROPERTY(EditAnywhere)
 	FVector2D FOVRange = FVector2D(60.f,120.f);
 
-	UPROPERTY(EditAnywhere , Category = GameGraph)
-	TSubclassOf<UGraph> GameGraphClass;
-
 	UPROPERTY(EditAnywhere, Category = GameGraph)
-	TSubclassOf<UGraph> GameGraphClass2;
-
+	TSubclassOf<UGraph> GameGraphClass;
 
 	UPROPERTY(EditAnywhere, Category = Debug)
 	UDebugDataAsset* DebugDataAsset;
 
 	UPROPERTY(EditAnywhere, Category = GameGraph)
 	TSubclassOf<UUserWidget> MenuClass;
+
+	UPROPERTY(EditAnywhere, Category = Save)
+	FString SaveSlotName = "GraphSave";
+
 
 private:
 	UPROPERTY(Transient)
@@ -79,5 +94,8 @@ private:
 
 	UPROPERTY(Transient)
 	UUserWidget* Menu;
+
+	UPROPERTY(Transient)
+	UGraphSaveManager* GraphSaveManager = nullptr;
 
 };

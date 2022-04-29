@@ -37,8 +37,9 @@ public:
 	//Public members
 
 	void Init();
+	void DeInit();
 
-	UPROPERTY()
+	UPROPERTY(SaveGame)
 	TArray<UGraphNode*> Nodes;
 
 	void SetDirected(bool bInValue);
@@ -77,13 +78,13 @@ protected:
 		UGraphNode* LastClickedNode;
 
 
-	int32 nNodes = 0;
+	TMap<UGraphNode*, TMap<UGraphNode*, UGraphEdge*>> EdgeMap;
 
-	TMap<UGraphNode*, TMap<UGraphNode*, UGraphEdge*>> Edges;
-
-	UPROPERTY()
-	TArray< UGraphEdge*> EdgeList;
-	int32 nEdges = 0;
+	//SAVE
+	UPROPERTY(SaveGame)
+	TArray< UGraphEdge*> Edges;
+	UPROPERTY(SaveGame)
+		bool bIsDirected = true;
 
 	//Algorithms Members
 	UPROPERTY(Transient)
@@ -92,5 +93,5 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 		TMap<EAlgorithmType, TSubclassOf<UGraphAlgorithm>> AlgorithmClasses;
 
-	bool bIsDirected = true;
+
 };

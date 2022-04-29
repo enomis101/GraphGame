@@ -22,13 +22,13 @@ public:
 
 	//virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(Transient)
+	UPROPERTY(SaveGame)
 	UGraphNode* FirstNode = nullptr;
 
-	UPROPERTY(Transient)
+	UPROPERTY(SaveGame)
 	UGraphNode* SecondNode = nullptr;
 
-	void Init(UGraphNode* N1, UGraphNode* N2, int32 InId);
+	void Init(UGraphNode* N1 = nullptr, UGraphNode* N2 = nullptr, int32 InId = -1);
 	void DeInit();
 
 	float GetWeight() { return Length; }
@@ -64,6 +64,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Appearance)
 		TSubclassOf<AGraphEdgeMeshActor> MeshClass;
 
+	//Save Game
+	UPROPERTY(SaveGame)
+		int32 Id;
 private:
 	
 	void InitMeshes();
@@ -79,7 +82,8 @@ private:
 		UMaterialInstanceDynamic* Material;
 
 	FVector InitialWorldLocation;
-
-	int32 Id;
 	float Length;
+
+
+	
 };

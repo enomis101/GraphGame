@@ -11,77 +11,70 @@
 #include <Components/CanvasPanel.h>
 #include "Graph/GameGraph.h"
 #include <Components/CheckBox.h>
+#include <Components/EditableText.h>
 
 void UGameMenuWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
-	if (CloseButton)
-	{
-		CloseButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnCloseButtonClicked);
-	}
-	if (ResetGraphButton)
-	{
-		ResetGraphButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnResetGraphButtonClicked);
-	}
-	if (StartButton)
-	{
-		StartButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnStartButtonClicked);
-	}
 
-	if (GraphTypeCheckBox)
+	CloseButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnCloseButtonClicked);
+
+	ResetGraphButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnResetGraphButtonClicked);
+
+	StartButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnStartButtonClicked);
+
+	SaveCurrGraphButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnSaveCurrGraphButtonClicked);
+	LoadGraphButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnLoadGraphButtonClicked);
+	CreateNewGraphButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnCreateNewGraphButtonClicked);
+	RemoveCurrentGraphButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnRemoveCurrentGraphButtonClicked);
+
+	AGameplayPlayerController* PC = GetOwningPlayer<AGameplayPlayerController>();
+	if (PC && PC->GetGameGraph())
 	{
-		AGameplayPlayerController* PC = GetOwningPlayer<AGameplayPlayerController>();
-		if (PC)
-		{
-			GraphTypeCheckBox->SetCheckedState(PC->GetGameGraph()->GetIsDirected() ? ECheckBoxState::Checked : ECheckBoxState::Unchecked);
-		}
-		GraphTypeCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &ThisClass::OnGraphTypeCheckBoxChanged);
+		GraphTypeCheckBox->SetCheckedState(PC->GetGameGraph()->GetIsDirected() ? ECheckBoxState::Checked : ECheckBoxState::Unchecked);
 	}
-	if (AlgorithmTypeComboBox)
+	else
 	{
-		for (EAlgorithmType Val : TEnumRange<EAlgorithmType>())
-		{
-			FString EnumName =  UEnum::GetValueAsString(Val);
-			EnumName.RemoveFromStart("EAlgorithmType::", ESearchCase::Type::IgnoreCase);
-			AlgorithmTypeComboBox->AddOption(EnumName);
-		}
-		AlgorithmTypeComboBox->OnSelectionChanged.AddUniqueDynamic(this, &ThisClass::OnAlgorithmSelection);
+		GraphTypeCheckBox->SetCheckedState(ECheckBoxState::Undetermined);
 	}
-	if (MainCanvas)
+	GraphTypeCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &ThisClass::OnGraphTypeCheckBoxChanged);
+
+
+	for (EAlgorithmType Val : TEnumRange<EAlgorithmType>())
 	{
-		for (UWidget* Widget : MainCanvas->GetAllChildren())
+		FString EnumName = UEnum::GetValueAsString(Val);
+		EnumName.RemoveFromStart("EAlgorithmType::", ESearchCase::Type::IgnoreCase);
+		AlgorithmTypeComboBox->AddOption(EnumName);
+	}
+	AlgorithmTypeComboBox->OnSelectionChanged.AddUniqueDynamic(this, &ThisClass::OnAlgorithmSelection);
+
+
+	for (UWidget* Widget : MainCanvas->GetAllChildren())
+	{
+		ensure(Widget);
+		if (UAlgorithmInputWidget* AlgoInputWidget = Cast<UAlgorithmInputWidget>(Widget))
 		{
-			ensure(Widget);
-			if (UAlgorithmInputWidget* AlgoInputWidget = Cast<UAlgorithmInputWidget>(Widget))
-			{
-				AlgoInputWidgets.Add(AlgoInputWidget);
-			}
+			AlgoInputWidgets.Add(AlgoInputWidget);
 		}
 	}
 }
 
 void UGameMenuWidget::NativeDestruct()
 {
-	if (CloseButton)
-	{
-		CloseButton->OnClicked.RemoveDynamic(this, &ThisClass::OnCloseButtonClicked);
-	}
-	if (ResetGraphButton)
-	{
-		ResetGraphButton->OnClicked.RemoveDynamic(this, &ThisClass::OnResetGraphButtonClicked);
-	}
-	if (StartButton)
-	{
-		StartButton->OnClicked.RemoveDynamic(this, &ThisClass::OnStartButtonClicked);
-	}
-	if (AlgorithmTypeComboBox)
-	{
-		AlgorithmTypeComboBox->OnSelectionChanged.RemoveDynamic(this, &ThisClass::OnAlgorithmSelection);
-	}
-	if (GraphTypeCheckBox)
-	{
-		GraphTypeCheckBox->OnCheckStateChanged.RemoveDynamic(this, &ThisClass::OnGraphTypeCheckBoxChanged);
-	}
+	CloseButton->OnClicked.RemoveDynamic(this, &ThisClass::OnCloseButtonClicked);
+
+	ResetGraphButton->OnClicked.RemoveDynamic(this, &ThisClass::OnResetGraphButtonClicked);
+
+	StartButton->OnClicked.RemoveDynamic(this, &ThisClass::OnStartButtonClicked);
+
+	AlgorithmTypeComboBox->OnSelectionChanged.RemoveDynamic(this, &ThisClass::OnAlgorithmSelection);
+
+	GraphTypeCheckBox->OnCheckStateChanged.RemoveDynamic(this, &ThisClass::OnGraphTypeCheckBoxChanged);
+
+	SaveCurrGraphButton->OnClicked.RemoveDynamic(this, &ThisClass::OnSaveCurrGraphButtonClicked);
+	LoadGraphButton->OnClicked.RemoveDynamic(this, &ThisClass::OnLoadGraphButtonClicked);
+	CreateNewGraphButton->OnClicked.RemoveDynamic(this, &ThisClass::OnCreateNewGraphButtonClicked);
+	RemoveCurrentGraphButton->OnClicked.RemoveDynamic(this, &ThisClass::OnRemoveCurrentGraphButtonClicked);
 }
 
 void UGameMenuWidget::OnCloseButtonClicked()
@@ -155,4 +148,50 @@ void UGameMenuWidget::OnAlgorithmSelection(FString SelectedItem, ESelectInfo::Ty
 		
 	}
 	
+}
+
+void UGameMenuWidget::OnSaveCurrGraphButtonClicked()
+{
+	AGameplayPlayerController* PC = GetOwningPlayer<AGameplayPlayerController>();
+	if (PC)
+	{
+		FText InputText = GraphNameText->GetText();
+		if (!InputText.IsEmptyOrWhitespace())
+		{
+			PC->SaveCurrentGraphAs(FName(InputText.ToString()));
+		}
+
+	}
+}
+
+void UGameMenuWidget::OnLoadGraphButtonClicked()
+{
+	AGameplayPlayerController* PC = GetOwningPlayer<AGameplayPlayerController>();
+	if (PC)
+	{
+		FText InputText = GraphNameText->GetText();
+		if (!InputText.IsEmptyOrWhitespace())
+		{
+			PC->LoadGraph(FName(InputText.ToString()));
+		}
+		
+	}
+}
+
+void UGameMenuWidget::OnCreateNewGraphButtonClicked()
+{
+	AGameplayPlayerController* PC = GetOwningPlayer<AGameplayPlayerController>();
+	if (PC)
+	{
+		PC->CreateNewGraph();
+	}
+}
+
+void UGameMenuWidget::OnRemoveCurrentGraphButtonClicked()
+{
+	AGameplayPlayerController* PC = GetOwningPlayer<AGameplayPlayerController>();
+	if (PC)
+	{
+		PC->RemoveCurrentGraph();
+	}
 }

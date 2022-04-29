@@ -12,6 +12,8 @@
 #include "Data/DebugDataAsset.h"
 #include "Graph/GameGraphNode.h"
 #include <Blueprint/WidgetBlueprintLibrary.h>
+#include "Save/GraphSaveManager.h"
+#include "Save/GraphSaveGame.h"
 #pragma optimize("", off)
 
 void AGameplayPlayerController::SetupInputComponent()
@@ -181,7 +183,84 @@ void AGameplayPlayerController::BeginPlay()
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.Owner = this;
 
-	GameGraph = NewObject<UGraph>(this, GameGraphClass2);
+	GraphSaveManager = NewObject<UGraphSaveManager>(this, UGraphSaveManager::StaticClass());
+	LoadGame();
+}
+
+void AGameplayPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+
+	SaveGame();
+
+}
+
+void AGameplayPlayerController::SaveGame()
+{
+	if (UGraphSaveGame* SaveGameInstance = Cast<UGraphSaveGame>(UGameplayStatics::CreateSaveGameObject(UGraphSaveGame::StaticClass())))
+	{
+		ensure(GraphSaveManager);
+		// Set data on the savegame object.
+		GraphSaveManager->GetSaveData(SaveGameInstance->SavedGraphs);
+
+		// Save the data immediately.
+		if (UGameplayStatics::SaveGameToSlot(SaveGameInstance, SaveSlotName, 0 /*UserIndex*/))
+		{
+			// The operation was successful, so LoadedGame now contains the data we saved earlier.
+			UE_LOG(LogTemp, Warning, TEXT("save: GRAPHS SAVE SUCCESS"));
+		}
+	}
+}
+
+void AGameplayPlayerController::LoadGame()
+{
+	// Retrieve and cast the USaveGame object to UMySaveGame.
+	if (UGraphSaveGame* LoadedGame = Cast<UGraphSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0)))
+	{
+		// The operation was successful, so LoadedGame now contains the data we saved earlier.
+		UE_LOG(LogTemp, Warning, TEXT("save: N GRAPHS LOADED %d"), LoadedGame->SavedGraphs.Num());
+
+		ensure(GraphSaveManager);
+		GraphSaveManager->LoadSaveData(LoadedGame->SavedGraphs);
+	}
+}
+
+void AGameplayPlayerController::SaveCurrentGraphAs(FName GraphName)
+{
+	ensure(GraphSaveManager);
+	GraphSaveManager->SaveGraph(GraphName, GameGraph);
+}
+
+void AGameplayPlayerController::LoadGraph(FName GraphName)
+{
+	ensure(GraphSaveManager);
+	UGraph* NewGraph = GraphSaveManager->GetSavedGraph(GraphName);
+	if (NewGraph)
+	{
+		if (GameGraph)
+		{
+			GameGraph->DeInit();
+		}
+
+		NewGraph->Init();
+		GameGraph = NewGraph;
+	}
+}
+
+void AGameplayPlayerController::RemoveCurrentGraph()
+{
+	if (GameGraph)
+	{
+		GameGraph->DeInit();
+		GameGraph = nullptr;
+	}
+}
+
+void AGameplayPlayerController::CreateNewGraph()
+{
+	RemoveCurrentGraph();
+
+	GameGraph = NewObject<UGraph>(this, GameGraphClass);
 	if (GameGraph)
 	{
 		GameGraph->Init();
