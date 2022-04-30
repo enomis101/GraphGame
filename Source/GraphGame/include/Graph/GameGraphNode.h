@@ -41,6 +41,8 @@ public:
 	void Init(int32 InId = -1, FVector InSpawnLocation = FVector::ZeroVector);
 	void DeInit();
 
+	void SerializeNode(FArchive& Ar);
+
 	//APPEARANCE
 
 	void ResetAppearance();

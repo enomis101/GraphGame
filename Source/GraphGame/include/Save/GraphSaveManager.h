@@ -5,7 +5,8 @@
 #include "GraphSaveManager.generated.h"
 
 class UGraph;
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSaveDataLoadedDynamic);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGraphSaveManagerEventDynamic, UGraph*, Item);
 
 UCLASS(BlueprintType, Blueprintable)
 class GRAPHGAME_API UGraphSaveManager : public UObject
@@ -14,12 +15,16 @@ class GRAPHGAME_API UGraphSaveManager : public UObject
 
 public:
 	static UGraphSaveManager* Get(const UObject* WorldContextObject);
-	void SaveGraph(FName GraphName, UGraph* GraphToSave);
-	bool DeleteSavedGraph(FName GraphName);
-	UGraph* GetSavedGraph(FName GraphName);
+	void SaveGraph(UGraph* GraphToSave);
+	bool DeleteSavedGraph(const FString& GraphName);
+	UGraph* GetSavedGraph(const FString& GraphName);
 
-	void GetSaveData(TMap<FName, UGraph*>& OutSaveData);
-	void LoadSaveData(const TMap<FName, UGraph*>& InSaveData);
+	void GetSaveData(TArray<uint8>& OutSaveData);
+	void LoadSaveData(const TArray<uint8>& InSaveData);
 	UPROPERTY()
-	TMap<FName,UGraph*> SavedGraphs;
+	TSet<UGraph*> SavedGraphs;
+
+	FGraphSaveManagerEventDynamic OnGraphAdded;
+	FGraphSaveManagerEventDynamic OnGraphRemoved;
+	FOnSaveDataLoadedDynamic OnSaveDataLoaded;
 };

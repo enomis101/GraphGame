@@ -9,6 +9,8 @@
 #include <Materials/MaterialInstanceDynamic.h>
 #include <Components/TextRenderComponent.h>
 #include <Kismet/KismetMathLibrary.h>
+#include "Graph/GameGraph.h"
+#include <Serialization/Archive.h>
 
 #pragma optimize("",off)
 
@@ -169,6 +171,26 @@ void UGraphEdge::SetSelected()
 	if (Material)
 	{
 		Material->SetScalarParameterValue(SelParameterName, 1.f);
+	}
+}
+
+void UGraphEdge::SerializeEdge(FArchive& Ar, UGraph* OuterGraph)
+{
+	Ar << Id;
+	if (Ar.IsSaving())
+	{
+		int32 FirstNodeId = FirstNode->GetId();
+		int32 SecondNodeId = SecondNode->GetId();
+		Ar << FirstNodeId;
+		Ar << SecondNodeId;
+	}
+	else
+	{
+		int32 FirstNodeId, SecondNodeId;
+		Ar << FirstNodeId;
+		Ar << SecondNodeId;
+		FirstNode = OuterGraph->GetNodeById(FirstNodeId);
+		SecondNode = OuterGraph->GetNodeById(SecondNodeId);
 	}
 }
 

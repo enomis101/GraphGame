@@ -12,6 +12,8 @@ class UGraphNode;
 class UStaticMeshComponent;
 class UTextRenderComponent;
 class UGraphNode;
+class FArchive;
+class UGraph;
 
 UCLASS(BlueprintType, Blueprintable)
 class GRAPHGAME_API UGraphEdge : public UObject
@@ -32,6 +34,8 @@ public:
 	void DeInit();
 
 	float GetWeight() { return Length; }
+
+	void SerializeEdge(FArchive& Ar, UGraph* OuterGraph);
 
 	//APPEARANCE
 	void ResetAppearance();

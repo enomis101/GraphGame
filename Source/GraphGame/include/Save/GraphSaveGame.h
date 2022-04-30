@@ -14,6 +14,14 @@ class GRAPHGAME_API UGraphSaveGame : public USaveGame
 	GENERATED_BODY()
 
 public:
+	//UPROPERTY(SaveGame)
+	//TMap<FName, UGraph> SavedGraphs;
+
 	UPROPERTY(SaveGame)
-	TMap<FName, UGraph*> SavedGraphs;
+	int32 SaveVersion = 1;
+
+	static constexpr int32 CurrentSaveVersion = 1;
+
+	UPROPERTY(SaveGame)
+	TArray<uint8> MemoryBuffer;
 };

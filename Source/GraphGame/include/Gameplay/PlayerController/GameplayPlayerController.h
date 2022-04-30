@@ -47,12 +47,13 @@ public:
 	void SaveGame();
 	void LoadGame();
 
-	void SaveCurrentGraphAs(FName GraphName);
-	void LoadGraph(FName GraphName);
+	void SaveCurrentGraphAs(const FString& GraphName);
+	void LoadGraph(const FString& GraphName);
+	void LoadGraph(UGraph* GraphToLoad);
 
 	void RemoveCurrentGraph();
-	void CreateNewGraph();
-
+	void CreateNewGraph(bool bDirected = true);
+	UGraph* SpawnNewGraph();
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;

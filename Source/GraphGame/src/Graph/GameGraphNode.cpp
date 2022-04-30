@@ -118,6 +118,13 @@ void UGraphNode::DeInit()
 	}
 }
 
+void UGraphNode::SerializeNode(FArchive& Ar)
+{
+	Ar << SpawnLocation;
+	Ar << Id;
+	Ar << Edges;
+}
+
 void UGraphNode::ResetAppearance()
 {
 	SetDefaultColor();

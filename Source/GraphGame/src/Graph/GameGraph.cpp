@@ -23,9 +23,19 @@ static TAutoConsoleVariable<int32> CVarShowGraphDebugInfo(
 * 
 */
 
+//UGraph::UGraph(const FObjectInitializer& ObjectInitializer)
+//	:Super(ObjectInitializer)
+//{
+//
+//}
 
-void UGraph::Init()
+
+void UGraph::Init(bool bNewGraph, bool bIsDir)
 {
+	if (bNewGraph)
+	{
+		bIsDirected = bIsDir;
+	}
 
 	PC = Cast<AGameplayPlayerController>(GetOuter());
 	CameraComponent = PC ? PC->GetCameraComponent() : nullptr;
@@ -87,8 +97,64 @@ void UGraph::DeInit()
 	EdgeMap.Empty();
 }
 
+
+void UGraph::SerializeGraph(FArchive& Ar)
+{
+	Ar << GraphName;
+	Ar << bIsDirected;
+
+	if (Ar.IsSaving())
+	{
+		int32 NodesNum = Nodes.Num();
+		Ar << NodesNum;
+		for (UGraphNode* Node : Nodes)
+		{
+			Node->SerializeNode(Ar);
+		}
+
+		int32 EdgesNum = Edges.Num();
+		Ar << EdgesNum;
+		for (UGraphEdge* Edge : Edges)
+		{
+			Edge->SerializeEdge(Ar, this);
+		}
+	}
+	else
+	{
+		Nodes.Empty();
+		Edges.Empty();
+		EdgeMap.Empty();
+
+		int32 NodesNum = 0;
+		Ar << NodesNum;
+		for (int32 i = 0; i < NodesNum; i++)
+		{
+			UGraphNode* NewNode = NewObject<UGraphNode>(this, NodeClass);
+			Nodes.Add(NewNode);
+			NewNode->SerializeNode(Ar);
+		}
+
+		int32 EdgesNum = 0;
+		Ar << EdgesNum;
+		for (int32 i = 0; i < EdgesNum; i++)
+		{
+			UGraphEdge* NewEdge = NewObject<UGraphEdge>(this, bIsDirected ? DirectedEdgeClass : UnDirectedEdgeClass);
+			Edges.Add(NewEdge);
+			NewEdge->SerializeEdge(Ar, this);
+		}
+	}
+
+}
+
+
+
 void UGraph::OnMouseClick()
 {
+	if (CurrentRunningAlgorithm)
+	{
+		return;
+	}
+
 	LastClickedNode = nullptr;
 
 	if (!CameraComponent || !PC)
@@ -117,6 +183,11 @@ void UGraph::OnMouseClick()
 
 void UGraph::OnMouseReleased()
 {
+	if (CurrentRunningAlgorithm)
+	{
+		return;
+	}
+
 	FVector PointOnZeroPlane;
 	if (!GetPointOnZeroPlane(PointOnZeroPlane))
 		return;
@@ -193,7 +264,6 @@ void UGraph::StartAlgorithm(UGraphAlgorithmParams* InParams)
 
 void UGraph::StepAlgorithm()
 {
-	ensure(CurrentRunningAlgorithm);
 	if (CurrentRunningAlgorithm)
 	{
 		if (CurrentRunningAlgorithm->Step())
@@ -238,6 +308,16 @@ UGraphNode* UGraph::GetNodeAtIndex(int32 Index, bool bFallbackLastClicked /*= fa
 	return nullptr;
 }
 
+UGraphNode* UGraph::GetNodeById(int32 NodeId)
+{
+	for (UGraphNode* Node : Nodes)
+	{
+		if (NodeId == Node->GetId())
+			return Node;
+	}
+	return nullptr;
+}
+
 int32 UGraph::GetNodeIndexByValue(int32 Val)
 {
 	for (int32 i = 0; i < Nodes.Num(); i++)
@@ -256,11 +336,6 @@ int32 UGraph::GetNodeIndex(UGraphNode* InNode)
 			return i;
 	}
 	return -1;
-}
-
-void UGraph::SetDirected(bool bInValue)
-{
-	bIsDirected = bInValue;
 }
 
 bool UGraph::GetPointOnZeroPlane(FVector& OutVector)
@@ -420,4 +495,10 @@ void UGraph::PrintGraph()
 	GEngine->AddOnScreenDebugMessage(111, 5.f, FColor::Green, str);
 }
 
+//void UGraph::BeginDestroy()
+//{
+//	Super::BeginDestroy();
+//
+//
+//}
 

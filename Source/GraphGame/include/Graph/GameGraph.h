@@ -20,6 +20,8 @@ class GRAPHGAME_API UGraph : public UObject
 	GENERATED_BODY()
 
 public:
+
+	//UGraph(const FObjectInitializer& ObjectInitializer);
 	void OnMouseClick();
 	void OnMouseReleased();
 
@@ -32,18 +34,27 @@ public:
 	UGraphEdge* GetEdge(int32 Node1Index, int32 Node2Index);
 	UGraphEdge* GetEdge(UGraphNode* Node1, UGraphNode* Node2);
 	UGraphNode* GetNodeAtIndex(int32 Index, bool bFallbackLastClicked = false);
+	UGraphNode* GetNodeById(int32 NodeId);
 	int32 GetNodeIndexByValue(int32 Val);
 	int32 GetNodeIndex(UGraphNode* InNode);
 	//Public members
 
-	void Init();
+	void Init(bool bNewGraph = false, bool bIsDir = true);
 	void DeInit();
+
+	void SerializeGraph(FArchive& Archive);
+
+	UPROPERTY(SaveGame)
+	FString GraphName;
 
 	UPROPERTY(SaveGame)
 	TArray<UGraphNode*> Nodes;
+	UPROPERTY(SaveGame)
+	TArray< UGraphEdge*> Edges;
 
-	void SetDirected(bool bInValue);
-	FORCEINLINE bool GetIsDirected() { return bIsDirected; }
+	FORCEINLINE int32 GetNodesNum() { return Nodes.Num(); }
+	FORCEINLINE int32 GetEdgesNum() { return Edges.Num(); }
+	FORCEINLINE bool IsDirected() { return bIsDirected; }
 private:
 	bool GetPointOnZeroPlane(FVector& OutVector);
 	UGraphNode* SpawnNewNode(const FVector& SpawnLocation);
@@ -55,6 +66,7 @@ private:
 	bool IsValidSpawnPoint(const FVector& SpawnLocation, FHitResult& OutHitResult);
 	void PrintGraph();
 protected:
+	//virtual void BeginDestroy() override;
 
 	UPROPERTY(EditAnywhere, Category = GameGraph)
 		TSubclassOf<UGraphNode> NodeClass;
@@ -81,8 +93,7 @@ protected:
 	TMap<UGraphNode*, TMap<UGraphNode*, UGraphEdge*>> EdgeMap;
 
 	//SAVE
-	UPROPERTY(SaveGame)
-	TArray< UGraphEdge*> Edges;
+
 	UPROPERTY(SaveGame)
 		bool bIsDirected = true;
 

@@ -1,6 +1,8 @@
 #include "Save/GraphSaveManager.h"
 #include <Kismet/GameplayStatics.h>
 #include "Gameplay/PlayerController/GameplayPlayerController.h"
+#include <Serialization/MemoryWriter.h>
+#include <Serialization/MemoryReader.h>
 
 UGraphSaveManager* UGraphSaveManager::Get(const UObject* WorldContextObject)
 {
@@ -12,43 +14,72 @@ UGraphSaveManager* UGraphSaveManager::Get(const UObject* WorldContextObject)
 	return nullptr;
 }
 
-void UGraphSaveManager::SaveGraph(FName GraphName, UGraph* GraphToSave)
+void UGraphSaveManager::SaveGraph(UGraph* GraphToSave)
 {
-	if (!SavedGraphs.Contains(GraphName))
+	if (!SavedGraphs.Contains(GraphToSave))
 	{
-		SavedGraphs.Add(GraphName, GraphToSave);
-	}
-	else
-	{
-		SavedGraphs[GraphName] = GraphToSave;
+		SavedGraphs.Add(GraphToSave);
+		OnGraphAdded.Broadcast(GraphToSave);
 	}
 }
 
-bool UGraphSaveManager::DeleteSavedGraph(FName GraphName)
+bool UGraphSaveManager::DeleteSavedGraph(const FString& GraphName)
 {
-	if (SavedGraphs.Contains(GraphName))
+	UGraph* GraphToRemove = nullptr;
+	for (UGraph* Graph : SavedGraphs)
 	{
-		SavedGraphs.Remove(GraphName);
+		if (Graph->GraphName == GraphName)
+		{
+			GraphToRemove = Graph;
+			break;
+		}
+	}
+	if (GraphToRemove)
+	{
+		SavedGraphs.Remove(GraphToRemove);
+		OnGraphRemoved.Broadcast(GraphToRemove);
 		return true;
 	}
 	return false;
 }
 
-UGraph* UGraphSaveManager::GetSavedGraph(FName GraphName)
+UGraph* UGraphSaveManager::GetSavedGraph(const FString& GraphName)
 {
-	if (SavedGraphs.Contains(GraphName))
+	for (UGraph* Graph : SavedGraphs)
 	{
-		return SavedGraphs[GraphName];
+		if (Graph->GraphName == GraphName)
+		{
+			return Graph;
+		}
 	}
 	return nullptr;
 }
 
-void UGraphSaveManager::GetSaveData(TMap<FName, UGraph*>& OutSaveData)
+void UGraphSaveManager::GetSaveData(TArray<uint8>& OutSaveData)
 {
-	OutSaveData = SavedGraphs;
+	OutSaveData.Empty();
+	FMemoryWriter Writer(OutSaveData);
+	int32 GrapsNum = SavedGraphs.Num();
+	Writer << GrapsNum;
+	for (UGraph* Graph : SavedGraphs)
+	{
+		Graph->SerializeGraph(Writer);
+	}
 }
 
-void UGraphSaveManager::LoadSaveData(const TMap<FName, UGraph*>& InSaveData)
+void UGraphSaveManager::LoadSaveData(const TArray<uint8>& InSaveData)
 {
-	SavedGraphs = InSaveData;
+	FMemoryReader Reader(InSaveData);
+	int32 GraphsNum = 0;
+	Reader << GraphsNum;
+	SavedGraphs.Empty();
+	AGameplayPlayerController* PC = Cast<AGameplayPlayerController>(GetOuter());
+	ensure(PC);
+	for (int32 i = 0; i < GraphsNum; i++)
+	{
+		UGraph* NewGraph = PC->SpawnNewGraph();
+		SavedGraphs.Add(NewGraph);
+		NewGraph->SerializeGraph(Reader);
+	}
+	OnSaveDataLoaded.Broadcast();
 }
