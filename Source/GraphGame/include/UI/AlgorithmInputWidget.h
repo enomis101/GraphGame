@@ -11,13 +11,16 @@ class UGraphAlgorithmParams;
 /**
  * 
  */
-UCLASS(ABSTRACT, Blueprintable, BlueprintType)
+UCLASS(Blueprintable, BlueprintType)
 class GRAPHGAME_API UAlgorithmInputWidget : public UUserWidget
 {
 	GENERATED_BODY()
 public:
 	
-	FORCEINLINE virtual EAlgorithmType GetAlgorithmType() { return EAlgorithmType::NA; }
-	virtual UGraphAlgorithmParams* GetGraphAlgorithmParams() PURE_VIRTUAL(UAlgorithmInputWidget::GetGraphAlgorithmParams, return nullptr;);
+	FORCEINLINE virtual EAlgorithmType GetAlgorithmType() { return AlgoType; }
+	virtual UGraphAlgorithmParams* GetGraphAlgorithmParams();
 
+
+	UPROPERTY(EditAnywhere)
+	EAlgorithmType AlgoType;
 };

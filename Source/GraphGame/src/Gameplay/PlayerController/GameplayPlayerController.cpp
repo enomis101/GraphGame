@@ -30,6 +30,7 @@ void AGameplayPlayerController::SetupInputComponent()
 	InputComponent->BindAction("MouseClick", IE_Pressed, this, &ThisClass::OnMouseClick);
 	InputComponent->BindAction("MouseClick", IE_Released, this, &ThisClass::OnMouseReleased);
 	InputComponent->BindAction("StepAlgorithm", IE_Pressed, this, &ThisClass::StepAlgorithm);
+	InputComponent->BindAction("RunAlgorithm", IE_Pressed, this, &ThisClass::RunAlgorithm);
 	InputComponent->BindAction("Menu", IE_Pressed, this, &ThisClass::HandleMenu);
 }
 
@@ -99,6 +100,12 @@ void AGameplayPlayerController::StepAlgorithm()
 	GameGraph->StepAlgorithm();
 }
 
+void AGameplayPlayerController::RunAlgorithm()
+{
+	ensure(GameGraph);
+	GameGraph->RunAlgorithm();
+}
+
 void AGameplayPlayerController::HandleMenu()
 {
 	if (Menu)
@@ -147,6 +154,9 @@ void AGameplayPlayerController::StartAlgorithmFromMenu(UGraphAlgorithmParams* Al
 void AGameplayPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	FString UnlitCommand = FString("viewmode unlit");
+	ConsoleCommand(UnlitCommand);
+
 	bool bResult = false;
 	AGameplayPlayerCameraManager* CameraManager = Cast<AGameplayPlayerCameraManager>(PlayerCameraManager);
 	AActor* Target = CameraManager ? CameraManager->GetViewTarget() : nullptr;

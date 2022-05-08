@@ -34,6 +34,7 @@ public:
 	//Algorithms
 	void StartAlgorithm(UGraphAlgorithmParams* InParams);
 	void StepAlgorithm();
+	void RunAlgorithm();
 
 	void HandleMenu();
 	void SwitchToMenu();

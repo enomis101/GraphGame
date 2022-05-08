@@ -24,16 +24,13 @@ public:
 
 	//virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(SaveGame)
-	UGraphNode* FirstNode = nullptr;
+	int32 Node1;
+	int32 Node2;
 
-	UPROPERTY(SaveGame)
-	UGraphNode* SecondNode = nullptr;
-
-	void Init(UGraphNode* N1 = nullptr, UGraphNode* N2 = nullptr, int32 InId = -1);
+	void Init(int32 N1 = -1, int32 N2 = -1, int32 InId = -1);
 	void DeInit();
 
-	float GetWeight() { return Length; }
+	float GetWeight() const { return Length; }
 
 	void SerializeEdge(FArchive& Ar, UGraph* OuterGraph);
 
@@ -50,7 +47,7 @@ public:
 
 	//Color
 	void SetSelected();
-	
+	void SetColor(FLinearColor InColor);
 protected:
 	// Called when the game starts or when spawned
 	//virtual void BeginPlay() override;
@@ -63,7 +60,13 @@ protected:
 		float RightOffsetAmount = 20.f;
 
 	UPROPERTY(EditAnywhere, Category = Appearance)
-		FName SelParameterName = "Selected";
+	FLinearColor SelectedColor;
+
+	UPROPERTY(EditAnywhere, Category = Appearance)
+	FLinearColor DefaultColor;
+		
+	UPROPERTY(EditDefaultsOnly, Category = Appearance)
+		FName MaterialParameterName;
 
 	UPROPERTY(EditAnywhere, Category = Appearance)
 		TSubclassOf<AGraphEdgeMeshActor> MeshClass;
@@ -87,7 +90,7 @@ private:
 
 	FVector InitialWorldLocation;
 	float Length;
-
+	FLinearColor CurrentColor;
 
 	
 };

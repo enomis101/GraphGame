@@ -18,7 +18,6 @@ class GRAPHGAME_API USearchAlgorithmInputWidget : public UAlgorithmInputWidget
 	GENERATED_BODY()
 public:
 	//Public Functions
-	FORCEINLINE virtual EAlgorithmType GetAlgorithmType() override { return AlgoType; }
 	virtual UGraphAlgorithmParams* GetGraphAlgorithmParams() override;
 
 public:
@@ -28,7 +27,4 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UEditableText* TargetNode;
-
-	UPROPERTY(EditAnywhere)
-	EAlgorithmType AlgoType;
 };

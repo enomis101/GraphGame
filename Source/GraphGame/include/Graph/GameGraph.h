@@ -30,6 +30,8 @@ public:
 	//Algorithms Functions
 	void StartAlgorithm(UGraphAlgorithmParams* InParams);
 	void StepAlgorithm();
+	void RunAlgorithm();
+
 	void DestroyCurrentAlgorithm();
 	UGraphEdge* GetEdge(int32 Node1Index, int32 Node2Index);
 	UGraphEdge* GetEdge(UGraphNode* Node1, UGraphNode* Node2);

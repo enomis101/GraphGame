@@ -49,34 +49,36 @@ void UGraph::Init(bool bNewGraph, bool bIsDir)
 	for (UGraphEdge* Edge : Edges)
 	{
 		Edge->Init();
+		UGraphNode* FirstNode = Nodes[Edge->Node1];
+		UGraphNode* SecondNode = Nodes[Edge->Node2];
 		if (bIsDirected)
 		{
-			if (!EdgeMap.Contains(Edge->FirstNode))
+			if (!EdgeMap.Contains(FirstNode))
 			{
-				EdgeMap.Add(Edge->FirstNode, TMap<UGraphNode*, UGraphEdge*>());
+				EdgeMap.Add(FirstNode, TMap<UGraphNode*, UGraphEdge*>());
 
 			}
-			EdgeMap[Edge->FirstNode].Add(Edge->SecondNode, Edge);
+			EdgeMap[FirstNode].Add(SecondNode, Edge);
 			//If the edge is parallel to another one, offset it right
-			if (Edge->SecondNode->ContainsEdge(Edge->FirstNode->GetId()))
+			if (SecondNode->ContainsEdge(Edge->Node1))
 			{
 				Edge->OffsetRight();
 			}
 		}
 		else
 		{
-			if (!EdgeMap.Contains(Edge->FirstNode))
+			if (!EdgeMap.Contains(FirstNode))
 			{
-				EdgeMap.Add(Edge->FirstNode, TMap<UGraphNode*, UGraphEdge*>());
+				EdgeMap.Add(FirstNode, TMap<UGraphNode*, UGraphEdge*>());
 
 			}
-			EdgeMap[Edge->FirstNode].Add(Edge->SecondNode, Edge);
-			if (!EdgeMap.Contains(Edge->SecondNode))
+			EdgeMap[FirstNode].Add(SecondNode, Edge);
+			if (!EdgeMap.Contains(SecondNode))
 			{
-				EdgeMap.Add(Edge->SecondNode, TMap<UGraphNode*, UGraphEdge*>());
+				EdgeMap.Add(SecondNode, TMap<UGraphNode*, UGraphEdge*>());
 
 			}
-			EdgeMap[Edge->SecondNode].Add(Edge->FirstNode, Edge);
+			EdgeMap[SecondNode].Add(FirstNode, Edge);
 		}
 	}
 }
@@ -274,6 +276,21 @@ void UGraph::StepAlgorithm()
 	}
 }
 
+void UGraph::RunAlgorithm()
+{
+	if (CurrentRunningAlgorithm)
+	{
+		while(true)
+		{
+			if (CurrentRunningAlgorithm->Step())
+				break;
+		}
+
+		CurrentRunningAlgorithm->End();
+		DestroyCurrentAlgorithm();
+	}
+}
+
 void UGraph::DestroyCurrentAlgorithm()
 {
 	if (CurrentRunningAlgorithm)
@@ -392,7 +409,7 @@ void UGraph::SpawnDirectedEdge(UGraphNode* Node1, UGraphNode* Node2)
 
 	if (Edge)
 	{
-		Edge->Init(Node1, Node2, Edges.Num());
+		Edge->Init(Node1Index, Node2Index, Edges.Num());
 		Edges.Add(Edge);
 		Node1->AddEdge(Node2Index);
 		if (!EdgeMap.Contains(Node1))
@@ -427,7 +444,7 @@ void UGraph::SpawnUnDirectedEdge(UGraphNode* Node1, UGraphNode* Node2)
 
 	if (Edge)
 	{
-		Edge->Init(Node1, Node2, Edges.Num());
+		Edge->Init(Node1Index, Node2Index, Edges.Num());
 		Edges.Add(Edge);
 
 		Node1->AddEdge(Node2Index);

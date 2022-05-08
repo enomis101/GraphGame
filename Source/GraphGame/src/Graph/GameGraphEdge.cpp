@@ -26,12 +26,12 @@
 */
 
 
-void UGraphEdge::Init(UGraphNode* N1, UGraphNode* N2, int32 i)
+void UGraphEdge::Init(int32 N1, int32 N2, int32 i)
 {
-	if (N1 && N2 && i >= 0)
+	if (N1 >= 0 && N2 >= 0 && i >= 0)
 	{
-		FirstNode = N1;
-		SecondNode = N2;
+		Node1 = N1;
+		Node2 = N2;
 		Id = i;
 	}
 
@@ -61,7 +61,12 @@ void UGraphEdge::DeInit()
 
 void UGraphEdge::InitMeshes()
 {
-	ensure(MeshActor);
+	UGraph* Graph = Cast<UGraph>(GetOuter());
+	ensure(MeshActor && Graph);
+
+	UGraphNode* FirstNode = Graph->Nodes[Node1];
+	UGraphNode* SecondNode = Graph->Nodes[Node2];
+
 	FVector Dir = SecondNode->GetLocation() - FirstNode->GetLocation();
 	Length = Dir.Size() - FirstNode->Radius * 2.f;
 	MeshActor->GraphEdge = this;
@@ -116,6 +121,12 @@ void UGraphEdge::InitMeshes()
 
 AGraphEdgeMeshActor* UGraphEdge::SpawnAndPlaceMeshActor()
 {
+	UGraph* Graph = Cast<UGraph>(GetOuter());
+	ensure(Graph);
+
+	UGraphNode* FirstNode = Graph->Nodes[Node1];
+	UGraphNode* SecondNode = Graph->Nodes[Node2];
+
 	FVector Node1Location = FirstNode->GetLocation();
 	FVector Node2Location = SecondNode->GetLocation();
 	FVector EdgeDirection = Node2Location - Node1Location;
@@ -168,10 +179,20 @@ FString UGraphEdge::GetEdgeName()
 
 void UGraphEdge::SetSelected()
 {
+	SetColor(SelectedColor);
+}
+
+void UGraphEdge::SetColor(FLinearColor InColor)
+{
+	if (CurrentColor == InColor)
+		return;
+
 	if (Material)
 	{
-		Material->SetScalarParameterValue(SelParameterName, 1.f);
+		Material->SetVectorParameterValue(MaterialParameterName, InColor);
+		CurrentColor = InColor;
 	}
+
 }
 
 void UGraphEdge::SerializeEdge(FArchive& Ar, UGraph* OuterGraph)
@@ -179,28 +200,19 @@ void UGraphEdge::SerializeEdge(FArchive& Ar, UGraph* OuterGraph)
 	Ar << Id;
 	if (Ar.IsSaving())
 	{
-		int32 FirstNodeId = FirstNode->GetId();
-		int32 SecondNodeId = SecondNode->GetId();
-		Ar << FirstNodeId;
-		Ar << SecondNodeId;
+		Ar << Node1;
+		Ar << Node2;
 	}
 	else
 	{
-		int32 FirstNodeId, SecondNodeId;
-		Ar << FirstNodeId;
-		Ar << SecondNodeId;
-		FirstNode = OuterGraph->GetNodeById(FirstNodeId);
-		SecondNode = OuterGraph->GetNodeById(SecondNodeId);
+		Ar << Node1;
+		Ar << Node2;
 	}
 }
 
 void UGraphEdge::ResetAppearance()
 {
 	SetDefaultName();
-
-	if (Material)
-	{
-		Material->SetScalarParameterValue(SelParameterName, 0.f);
-	}
+	SetColor(DefaultColor);
 }
 
