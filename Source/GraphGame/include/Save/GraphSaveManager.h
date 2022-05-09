@@ -17,6 +17,7 @@ public:
 	static UGraphSaveManager* Get(const UObject* WorldContextObject);
 	void SaveGraph(UGraph* GraphToSave);
 	bool DeleteSavedGraph(const FString& GraphName);
+	bool DeleteSavedGraph(UGraph* GraphToDelete);
 	UGraph* GetSavedGraph(const FString& GraphName);
 
 	void GetSaveData(TArray<uint8>& OutSaveData);

@@ -34,10 +34,16 @@ bool UGraphSaveManager::DeleteSavedGraph(const FString& GraphName)
 			break;
 		}
 	}
-	if (GraphToRemove)
+	DeleteSavedGraph(GraphToRemove);
+	return false;
+}
+
+bool UGraphSaveManager::DeleteSavedGraph(UGraph* GraphToDelete)
+{
+	if (GraphToDelete && SavedGraphs.Contains(GraphToDelete))
 	{
-		SavedGraphs.Remove(GraphToRemove);
-		OnGraphRemoved.Broadcast(GraphToRemove);
+		SavedGraphs.Remove(GraphToDelete);
+		OnGraphRemoved.Broadcast(GraphToDelete);
 		return true;
 	}
 	return false;

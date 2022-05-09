@@ -28,6 +28,13 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* LoadGraphButton;
+
+	UPROPERTY(meta = (BindWidget))
+		UButton* DeleteGraphButton;
+
 	UFUNCTION()
 	void OnLoadGraphButtonClicked();
+
+	UFUNCTION()
+		void OnDeleteGraphButtonClicked();
 };

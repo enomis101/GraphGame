@@ -51,6 +51,7 @@ public:
 	void SaveCurrentGraphAs(const FString& GraphName);
 	void LoadGraph(const FString& GraphName);
 	void LoadGraph(UGraph* GraphToLoad);
+	void DeleteGraph(UGraph* GraphToDelete);
 
 	void RemoveCurrentGraph();
 	void CreateNewGraph(bool bDirected = true);

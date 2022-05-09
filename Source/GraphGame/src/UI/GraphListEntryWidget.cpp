@@ -17,11 +17,13 @@ void UGraphListEntryWidget::NativeOnListItemObjectSet(UObject* Item)
 	}
 
 	LoadGraphButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnLoadGraphButtonClicked);
+	DeleteGraphButton->OnClicked.AddUniqueDynamic(this, &ThisClass::OnDeleteGraphButtonClicked);
 }
 
 void UGraphListEntryWidget::NativeDestruct()
 {
 	LoadGraphButton->OnClicked.RemoveDynamic(this, &ThisClass::OnLoadGraphButtonClicked);
+	DeleteGraphButton->OnClicked.RemoveDynamic(this, &ThisClass::OnDeleteGraphButtonClicked);
 	Super::NativeDestruct();
 }
 
@@ -32,5 +34,15 @@ void UGraphListEntryWidget::OnLoadGraphButtonClicked()
 	if (PC && Graph)
 	{
 		PC->LoadGraph(Graph);
+	}
+}
+
+void UGraphListEntryWidget::OnDeleteGraphButtonClicked()
+{
+	AGameplayPlayerController* PC = GetOwningPlayer<AGameplayPlayerController>();
+	UGraph* Graph = GetListItem<UGraph>();
+	if (PC && Graph)
+	{
+		PC->DeleteGraph(Graph);
 	}
 }

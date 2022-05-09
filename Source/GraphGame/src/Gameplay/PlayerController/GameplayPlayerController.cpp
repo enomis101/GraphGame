@@ -270,6 +270,15 @@ void AGameplayPlayerController::LoadGraph(UGraph* GraphToLoad)
 	}
 }
 
+void AGameplayPlayerController::DeleteGraph(UGraph* GraphToDelete)
+{
+	if (GraphToDelete == GameGraph)
+	{
+		RemoveCurrentGraph();
+	}
+	GraphSaveManager->DeleteSavedGraph(GraphToDelete);
+}
+
 void AGameplayPlayerController::RemoveCurrentGraph()
 {
 	if (GameGraph)
