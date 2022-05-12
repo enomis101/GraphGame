@@ -8,6 +8,7 @@ enum class EAlgorithmType : uint8 {
 	DFSRecursive UMETA(DisplayName = "DFSRecursive"),
 	Dijkstra UMETA(DisplayName = "Dijkstra"),
 	MST_Kruskal UMETA(DisplayName = "Kruskal"),
+	MST_Prim UMETA(DisplayName = "Prim"),
 	NA UMETA(Hidden)
 };
 ENUM_RANGE_BY_COUNT(EAlgorithmType, EAlgorithmType::NA);

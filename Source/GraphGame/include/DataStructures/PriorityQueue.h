@@ -23,6 +23,8 @@ public:
 	and to keep this structure up to date as the priority queue Q changes. 
 	*/
 	void DecreasePriority(const T& x, int32 NewP);
+	int32 Find(const T& x);
+	int32 GetPriority(int32 i);
 private:
 	TArray<std::pair<T, int32>> v;
 	TMap<T, int32> map;
@@ -33,20 +35,26 @@ private:
 	//Let the value v[i] float down the heap, and recursively maintain the heap property on v[i] subtrees
 	void MinHeapifyDown(int32 i);
 	void MinHeapifyUp(int32 i);
-	
-	int32 Find(const T& x);
+
 	int32 OldFind(const T& x);
 };
+
+template<class T>
+int32 TMinPriorityQueue<T>::GetPriority(int32 i)
+{
+	ensure(v.IsValidIndex(i));
+	return v[i].second;
+}
 
 template<class T>
 int32 TMinPriorityQueue<T>::Find(const T& x)
 {
 	int32 i = map.Contains(x) ? map[x] : -1;
 
-	//#TODO REMOVE
-	int32 oldI = OldFind(x);
-	ensure(oldI == i);
-	//----
+	////#TODO REMOVE
+	//int32 oldI = OldFind(x);
+	//ensure(oldI == i);
+	////----
 
 	return i;
 }

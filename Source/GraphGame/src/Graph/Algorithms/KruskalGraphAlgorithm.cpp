@@ -6,7 +6,7 @@
 #include "Graph/GameGraph.h"
 #include "Graph/Algorithms/GraphAlgorithmParams.h"
 #include "Graph/GraphFunctionLibrary.h"
-#include "../../../include/Graph/GameGraphEdge.h"
+#include "Graph/GameGraphEdge.h"
 
 /*
 * PSEUDOCODE
