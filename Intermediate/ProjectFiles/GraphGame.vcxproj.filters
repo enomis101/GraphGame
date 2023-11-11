@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\GraphGame.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{1791003F-5DC5-4209-AF70-6A8466C03A4F}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\GraphGame.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\GraphGameEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{5DDD6F6D-94D7-40AB-8878-8A0DFDE18931}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\GraphGame">
+      <UniqueIdentifier>{2A6B0BBA-05A7-4451-AE8F-99965DC60B23}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\GraphGame\GraphGame.Build.cs">
+      <Filter>Source\GraphGame</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\GraphGame\GraphGame.cpp">
+      <Filter>Source\GraphGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\GraphGame\GraphGame.h">
+      <Filter>Source\GraphGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\GraphGame\GraphGameGameModeBase.cpp">
+      <Filter>Source\GraphGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\GraphGame\GraphGameGameModeBase.h">
+      <Filter>Source\GraphGame</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include">
+      <UniqueIdentifier>{10426BEF-3EE6-487D-8576-D70D6F296FCC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GraphGame\include\Actors">
+      <UniqueIdentifier>{9ED15F4E-FBC4-4A62-8ACC-C51FCC301B6F}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Actors\GraphEdgeMeshActor.h">
+      <Filter>Source\GraphGame\include\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Actors\GraphNodeMeshActor.h">
+      <Filter>Source\GraphGame\include\Actors</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\Camera">
+      <UniqueIdentifier>{E6CF7F4B-A06D-42EA-B8B5-02660DF16A48}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Camera\GameplayPlayerCameraManager.h">
+      <Filter>Source\GraphGame\include\Camera</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\Cheat">
+      <UniqueIdentifier>{D7EBD84D-7D34-42E0-BAAB-68A5FF7D9AEA}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Cheat\GameCheatManager.h">
+      <Filter>Source\GraphGame\include\Cheat</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\Data">
+      <UniqueIdentifier>{1CEAC36F-BFE4-4FB9-A5FF-FB61332AA851}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Data\DebugDataAsset.h">
+      <Filter>Source\GraphGame\include\Data</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\DataStructures">
+      <UniqueIdentifier>{E57CC71E-8173-42B6-8E5E-AF12F7385619}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\DataStructures\PriorityQueue.h">
+      <Filter>Source\GraphGame\include\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\DataStructures\UnionFind.h">
+      <Filter>Source\GraphGame\include\DataStructures</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\Gameplay">
+      <UniqueIdentifier>{879895C2-B960-4BFF-A4DE-1AE8B2477842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GraphGame\include\Gameplay\GameMode">
+      <UniqueIdentifier>{6608A068-B534-424D-9CEA-0C150652062B}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Gameplay\GameMode\GameplayGameMode.h">
+      <Filter>Source\GraphGame\include\Gameplay\GameMode</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\Gameplay\PlayerController">
+      <UniqueIdentifier>{3E1D6BEA-CEFC-41B2-9CBD-BA269F8ECA3A}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Gameplay\PlayerController\GameplayPlayerController.h">
+      <Filter>Source\GraphGame\include\Gameplay\PlayerController</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\Graph">
+      <UniqueIdentifier>{8E3FD962-EAC6-44B1-A614-40F8C2E739A5}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\GameGraph.h">
+      <Filter>Source\GraphGame\include\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\GameGraphEdge.h">
+      <Filter>Source\GraphGame\include\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\GameGraphNode.h">
+      <Filter>Source\GraphGame\include\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\GraphFunctionLibrary.h">
+      <Filter>Source\GraphGame\include\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\GraphType.h">
+      <Filter>Source\GraphGame\include\Graph</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\Graph\Algorithms">
+      <UniqueIdentifier>{9D3C03B7-471E-4851-BD18-D2EA51DFB952}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\BFSGraphAlgorithm.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\DFSIterativeGraphAlgorithm.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\DFSRecursiveGraphAlgorithm.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\DijkstraGraphAlgorithm.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\GraphAlgorithm.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\GraphAlgorithmParams.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\KruskalGraphAlgorithm.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\PrimGraphAlgorithm.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\RecursiveGraphAlgorithm.h">
+      <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\Save">
+      <UniqueIdentifier>{17745883-46D7-4802-8AF6-C76D3B397534}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\Save\GraphSaveGame.h">
+      <Filter>Source\GraphGame\include\Save</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\Save\GraphSaveManager.h">
+      <Filter>Source\GraphGame\include\Save</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\include\UI">
+      <UniqueIdentifier>{CCA2A5FE-FBB0-4BE3-BC1D-2CB1A836DE9B}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\GraphGame\include\UI\AlgorithmInputWidget.h">
+      <Filter>Source\GraphGame\include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\UI\GameMenuWidget.h">
+      <Filter>Source\GraphGame\include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\UI\GraphInfoWidget.h">
+      <Filter>Source\GraphGame\include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\UI\GraphListEntryWidget.h">
+      <Filter>Source\GraphGame\include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\UI\GraphSaveWidget.h">
+      <Filter>Source\GraphGame\include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GraphGame\include\UI\SearchAlgorithmInputWidget.h">
+      <Filter>Source\GraphGame\include\UI</Filter>
+    </ClInclude>
+    <Filter Include="Source\GraphGame\src">
+      <UniqueIdentifier>{8AC8E365-C978-4F42-9464-7DD0C58481EC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GraphGame\src\Camera">
+      <UniqueIdentifier>{57F912D6-ED54-405C-9A90-1FA453325883}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\Camera\GameplayPlayerCameraManager.cpp">
+      <Filter>Source\GraphGame\src\Camera</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\Cheat">
+      <UniqueIdentifier>{12626CC3-5FF7-490D-BDA3-C14507F14EF3}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\Cheat\GameCheatManager.cpp">
+      <Filter>Source\GraphGame\src\Cheat</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\Data">
+      <UniqueIdentifier>{60139B04-5714-40DB-9F87-9BC465AF3D3F}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\Data\DebugDataAsset.cpp">
+      <Filter>Source\GraphGame\src\Data</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\DataStructures">
+      <UniqueIdentifier>{4888C550-2B55-4974-9F88-CBD081DF9B57}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\DataStructures\PriorityQueue.cpp">
+      <Filter>Source\GraphGame\src\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\DataStructures\UnionFind.cpp">
+      <Filter>Source\GraphGame\src\DataStructures</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\Gameplay">
+      <UniqueIdentifier>{DBE36E44-5096-46F7-962E-F05C6036F457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GraphGame\src\Gameplay\GameMode">
+      <UniqueIdentifier>{8FCD53A9-7273-4759-B6CB-27A664048686}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\Gameplay\GameMode\GameplayGameMode.cpp">
+      <Filter>Source\GraphGame\src\Gameplay\GameMode</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\Gameplay\PlayerController">
+      <UniqueIdentifier>{51392704-6E2D-4003-8AB6-266AB2E048CD}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\Gameplay\PlayerController\GameplayPlayerController.cpp">
+      <Filter>Source\GraphGame\src\Gameplay\PlayerController</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\Graph">
+      <UniqueIdentifier>{699AE322-E7DC-408E-A042-4B54DE6903EA}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\GameGraph.cpp">
+      <Filter>Source\GraphGame\src\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\GameGraphEdge.cpp">
+      <Filter>Source\GraphGame\src\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\GameGraphNode.cpp">
+      <Filter>Source\GraphGame\src\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\GraphFunctionLibrary.cpp">
+      <Filter>Source\GraphGame\src\Graph</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\Graph\Algorithms">
+      <UniqueIdentifier>{94BB8D82-051D-4324-85C6-CD351AB30801}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\BFSGraphAlgorithm.cpp">
+      <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\DFSIterativeGraphAlgorithm.cpp">
+      <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\DFSRecursiveGraphAlgorithm.cpp">
+      <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\DijkstraGraphAlgorithm.cpp">
+      <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\GraphAlgorithm.cpp">
+      <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\KruskalGraphAlgorithm.cpp">
+      <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\PrimGraphAlgorithm.cpp">
+      <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\RecursiveGraphAlgorithm.cpp">
+      <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\Save">
+      <UniqueIdentifier>{99438917-0D7E-4ADF-B977-903E7E7CE854}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\Save\GraphSaveGame.cpp">
+      <Filter>Source\GraphGame\src\Save</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\Save\GraphSaveManager.cpp">
+      <Filter>Source\GraphGame\src\Save</Filter>
+    </ClCompile>
+    <Filter Include="Source\GraphGame\src\UI">
+      <UniqueIdentifier>{9912F3BC-2B17-4E85-9A34-852CE9471806}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\GraphGame\src\UI\AlgorithmInputWidget.cpp">
+      <Filter>Source\GraphGame\src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\UI\GameMenuWidget.cpp">
+      <Filter>Source\GraphGame\src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\UI\GraphInfoWidget.cpp">
+      <Filter>Source\GraphGame\src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\UI\GraphListEntryWidget.cpp">
+      <Filter>Source\GraphGame\src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\UI\GraphSaveWidget.cpp">
+      <Filter>Source\GraphGame\src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GraphGame\src\UI\SearchAlgorithmInputWidget.cpp">
+      <Filter>Source\GraphGame\src\UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

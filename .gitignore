@@ -1,14 +1,7 @@
 Binaries
 DerivedDataCache
-Intermediate
+Intermediate/Build
+Intermediate/Config
+Intermediate/ReimportCache
 Saved
-.vscode
 .vs
-*.VC.db
-*.opensdf
-*.opendb
-*.sdf
-*.sln
-*.suo
-*.xcodeproj
-*.xcworkspace

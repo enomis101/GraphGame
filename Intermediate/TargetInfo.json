@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "GraphGame",
+			"Path": "C:\\Users\\simon\\Documents\\Unreal Projects\\GraphGame\\Source\\GraphGame.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "GraphGameEditor",
+			"Path": "C:\\Users\\simon\\Documents\\Unreal Projects\\GraphGame\\Source\\GraphGameEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

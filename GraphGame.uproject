@@ -7,12 +7,7 @@
 		{
 			"Name": "GraphGame",
 			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"Engine",
-				"CoreUObject",
-				"UMG"
-			]
+			"LoadingPhase": "Default"
 		}
 	]
 }
