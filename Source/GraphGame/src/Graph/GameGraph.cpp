@@ -150,7 +150,70 @@ void UGraph::SerializeGraph(FArchive& Ar)
 
 
 
-void UGraph::OnMouseClick()
+bool UGraph::StartMovingNode()
+{
+	if (CurrentRunningAlgorithm)
+	{
+		return false;
+	}
+	if (!ensure(CameraComponent && PC))
+		return false;
+
+	FVector PointOnZeroPlane;
+	GetPointOnZeroPlane(PointOnZeroPlane);
+
+	FHitResult HitResult;
+	if (!IsValidSpawnPoint(PointOnZeroPlane, HitResult))
+	{
+		AGraphNodeMeshActor* NodeMeshActor = Cast<AGraphNodeMeshActor>(HitResult.Actor);
+		if (NodeMeshActor)
+		{
+			ensure(NodeMeshActor->GraphNode);
+			CurrentMovingNode = NodeMeshActor->GraphNode;
+			AGraphNodeMeshActor* NodeMesh = CurrentMovingNode->GetMeshActor();
+			NodeMesh->SetActorEnableCollision(false);
+		}
+	}
+	return CurrentMovingNode != nullptr;
+}
+
+void UGraph::UpdateMovingNodePosition()
+{
+	if (!ensure(CurrentMovingNode))
+	{
+		return;
+	}
+
+	if (!ensure(CameraComponent && PC))
+		return;
+
+	FVector PointOnZeroPlane;
+	GetPointOnZeroPlane(PointOnZeroPlane);
+
+	FHitResult HitResult;
+	if (IsValidSpawnPoint(PointOnZeroPlane, HitResult))
+	{
+		CurrentMovingNode->MoveNode(PointOnZeroPlane);
+		TSet<UGraphEdge*> EdgesToUpdate;
+		GetInAndOutEdges(CurrentMovingNode, EdgesToUpdate);
+		for (UGraphEdge* CurrEdge : EdgesToUpdate)
+		{
+			CurrEdge->UpdatePosition(PointOnZeroPlane);
+		}
+	}
+}
+
+void UGraph::StopMovingNode()
+{
+	if (CurrentMovingNode)
+	{
+		AGraphNodeMeshActor* NodeMesh = CurrentMovingNode->GetMeshActor();
+		NodeMesh->SetActorEnableCollision(true);
+		CurrentMovingNode = nullptr;
+	}
+}
+
+void UGraph::OnRightMouseClick()
 {
 	if (CurrentRunningAlgorithm)
 	{
@@ -183,7 +246,7 @@ void UGraph::OnMouseClick()
 	}
 }
 
-void UGraph::OnMouseReleased()
+void UGraph::OnRightMouseReleased()
 {
 	if (CurrentRunningAlgorithm)
 	{
@@ -510,6 +573,17 @@ void UGraph::PrintGraph()
 		str += "\n";
 	}
 	GEngine->AddOnScreenDebugMessage(111, 5.f, FColor::Green, str);
+}
+
+void UGraph::GetInAndOutEdges(UGraphNode* Node, TSet<UGraphEdge*>& OutEdges)
+{
+	for (UGraphEdge* CurrEdge : Edges)
+	{
+		if (Nodes[CurrEdge->Node1] == Node || Nodes[CurrEdge->Node2] == Node)
+		{
+			OutEdges.Add(CurrEdge);
+		}
+	}
 }
 
 //void UGraph::BeginDestroy()

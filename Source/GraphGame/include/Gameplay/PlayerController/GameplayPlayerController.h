@@ -22,6 +22,7 @@ class GRAPHGAME_API AGameplayPlayerController : public APlayerController
 	GENERATED_BODY()
 public:
 	virtual void SetupInputComponent() override;
+	virtual void TickActor(float DeltaTime, enum ELevelTick TickType, FActorTickFunction& ThisTickFunction) override;
 
 	//Input functions
 	void MoveForward(float AxisValue);
@@ -29,6 +30,8 @@ public:
 	void ZoomCamera(float AxisValue);
 	void OnMouseClick();
 	void OnMouseReleased();
+	void OnRightMouseClick();
+	void OnRightMouseReleased();
 	FORCEINLINE UCameraComponent* GetCameraComponent() { return CameraComponent; }
 	FORCEINLINE	UGraph* GetGameGraph() { return GameGraph; }
 	//Algorithms
@@ -59,6 +62,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	
 
 	UPROPERTY(EditAnywhere)
 	float CameraSpeed = 3.f;
@@ -100,5 +104,7 @@ private:
 
 	UPROPERTY(Transient)
 	UGraphSaveManager* GraphSaveManager = nullptr;
+
+	bool bNodeMovingModeActive = false;
 
 };

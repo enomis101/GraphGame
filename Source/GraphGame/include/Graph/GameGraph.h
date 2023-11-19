@@ -22,8 +22,12 @@ class GRAPHGAME_API UGraph : public UObject
 public:
 
 	//UGraph(const FObjectInitializer& ObjectInitializer);
-	void OnMouseClick();
-	void OnMouseReleased();
+	bool StartMovingNode();
+	void UpdateMovingNodePosition();
+	void StopMovingNode();
+
+	void OnRightMouseClick();
+	void OnRightMouseReleased();
 
 	void ResetAppearance();
 
@@ -67,6 +71,8 @@ private:
 
 	bool IsValidSpawnPoint(const FVector& SpawnLocation, FHitResult& OutHitResult);
 	void PrintGraph();
+
+	void GetInAndOutEdges(UGraphNode* Node, TSet<UGraphEdge*>& OutEdges);
 protected:
 	//virtual void BeginDestroy() override;
 
@@ -89,7 +95,10 @@ protected:
 		UCameraComponent* CameraComponent;
 
 	UPROPERTY(Transient)
-		UGraphNode* LastClickedNode;
+	UGraphNode* LastClickedNode;
+
+	UPROPERTY(Transient)
+	UGraphNode* CurrentMovingNode;
 
 
 	TMap<UGraphNode*, TMap<UGraphNode*, UGraphEdge*>> EdgeMap;

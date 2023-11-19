@@ -28,12 +28,12 @@ void UGraphNode::Init(int32 InId, FVector InSpawnLocation)
 	if (InId >= 0)
 	{
 		Id = InId;
-		SpawnLocation = InSpawnLocation;
+		CurrentLocation = InSpawnLocation;
 	}
 	
 
 	FTransform SpawnTransform;
-	SpawnTransform.SetLocation(SpawnLocation);
+	SpawnTransform.SetLocation(CurrentLocation);
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding;
 	MeshActor = GetWorld()->SpawnActor<AGraphNodeMeshActor>(MeshClass, SpawnTransform, SpawnParameters);
@@ -106,6 +106,12 @@ FString UGraphNode::GetNodeName()
 	return "N" + FString::FromInt(Id);
 }
 
+void UGraphNode::MoveNode(const FVector& NewLocation)
+{
+	CurrentLocation = NewLocation;
+	ensure(MeshActor->TeleportTo(NewLocation, MeshActor->GetActorRotation()));
+}
+
 void UGraphNode::DeInit()
 {
 	if (MeshActor)
@@ -120,7 +126,7 @@ void UGraphNode::DeInit()
 
 void UGraphNode::SerializeNode(FArchive& Ar)
 {
-	Ar << SpawnLocation;
+	Ar << CurrentLocation;
 	Ar << Id;
 	Ar << Edges;
 }

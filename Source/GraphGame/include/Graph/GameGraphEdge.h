@@ -30,6 +30,8 @@ public:
 	void Init(int32 N1 = -1, int32 N2 = -1, int32 InId = -1);
 	void DeInit();
 
+	void UpdatePosition(const FVector& NewPosition);
+
 	float GetWeight() const { return Length; }
 
 	void SerializeEdge(FArchive& Ar, UGraph* OuterGraph);
@@ -78,7 +80,7 @@ private:
 	
 	void InitMeshes();
 	AGraphEdgeMeshActor* SpawnAndPlaceMeshActor();
-
+	void UpdateMeshActorPosition();
 	UPROPERTY(Transient)
 	AGraphEdgeMeshActor* MeshActor;
 

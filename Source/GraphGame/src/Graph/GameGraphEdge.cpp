@@ -44,6 +44,7 @@ void UGraphEdge::Init(int32 N1, int32 N2, int32 i)
 		InitMeshes();
 
 		ResetAppearance();
+		MeshActor->SetActorEnableCollision(false);
 	}
 }
 
@@ -56,6 +57,19 @@ void UGraphEdge::DeInit()
 		MeshActor = nullptr;
 		Material = nullptr;
 		Text = nullptr;
+	}
+}
+
+void UGraphEdge::UpdatePosition(const FVector& NewPosition)
+{
+	if (MeshActor)
+	{
+		UpdateMeshActorPosition();
+
+		InitMeshes();
+
+		ResetAppearance();
+		MeshActor->SetActorEnableCollision(false);
 	}
 }
 
@@ -97,6 +111,7 @@ void UGraphEdge::InitMeshes()
 	{
 		ShaftMesh->SetRelativeScale3D(FVector(1.f, 1.f, Length / ZScale));
 		Material = ShaftMesh->CreateDynamicMaterialInstance(0);
+		ShaftMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 
 	if (HeadMesh)
@@ -104,6 +119,7 @@ void UGraphEdge::InitMeshes()
 		Dir.Normalize();
 		FVector HeadLocation = SecondNode->GetLocation() - SecondNode->Radius * Dir;
 		HeadMesh->SetWorldLocation(HeadLocation);
+		HeadMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 
 	Text = MeshActor->FindComponentByClass<UTextRenderComponent>();
@@ -116,6 +132,7 @@ void UGraphEdge::InitMeshes()
 		NormDir.Normalize();
 		FVector NewLocation = FirstNode->GetLocation() + HalfLength * NormDir;
 		Text->SetWorldLocation(NewLocation);
+		Text->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 }
 
@@ -147,6 +164,32 @@ AGraphEdgeMeshActor* UGraphEdge::SpawnAndPlaceMeshActor()
 	return GetWorld()->SpawnActor<AGraphEdgeMeshActor>(MeshClass, SpawnTransform, SpawnParameters);
 }
 
+void UGraphEdge::UpdateMeshActorPosition()
+{
+	UGraph* Graph = Cast<UGraph>(GetOuter());
+	ensure(Graph);
+
+	UGraphNode* FirstNode = Graph->Nodes[Node1];
+	UGraphNode* SecondNode = Graph->Nodes[Node2];
+
+	FVector Node1Location = FirstNode->GetLocation();
+	FVector Node2Location = SecondNode->GetLocation();
+	FVector EdgeDirection = Node2Location - Node1Location;
+
+	float EdgeLength = EdgeDirection.Size() - FirstNode->Radius * 2.f;
+	EdgeDirection.Normalize();
+
+	FVector SpawnLocation = Node1Location + EdgeDirection * FirstNode->Radius;
+	FVector RightVector = FVector::CrossProduct(EdgeDirection, FVector::UpVector);
+	//FRotator SpawnRotation = UKismetMathLibrary::MakeRotationFromAxes(EdgeDirection /*Forward*/, RightVector /*Right*/, FVector::UpVector /*Up*/);
+	//FVector SpawnScale(1.f, 1.f, EdgeLength);
+	FRotator SpawnRotation = UKismetMathLibrary::FindLookAtRotation(Node1Location, Node2Location);
+	//FVector SpawnScale(1.f);
+	FTransform SpawnTransform(SpawnRotation, SpawnLocation, FVector(1.f));
+
+	MeshActor->SetActorTransform(SpawnTransform);
+}
+
 void UGraphEdge::SetDefaultName()
 {
 	if (Text)
@@ -157,19 +200,19 @@ void UGraphEdge::SetDefaultName()
 
 void UGraphEdge::OffsetRight()
 {
-	if (MeshActor)
-	{
-		FVector RightVector = MeshActor->GetActorTransform().TransformVector(FVector::RightVector);
-		MeshActor->SetActorLocation(InitialWorldLocation + RightVector * RightOffsetAmount);
-	}
+	//if (MeshActor)
+	//{
+	//	FVector RightVector = MeshActor->GetActorTransform().TransformVector(FVector::RightVector);
+	//	MeshActor->SetActorLocation(InitialWorldLocation + RightVector * RightOffsetAmount);
+	//}
 }
 
 void UGraphEdge::ResetOffset()
 {
-	if (MeshActor)
-	{
-		MeshActor->SetActorLocation(InitialWorldLocation);
-	}
+	//if (MeshActor)
+	//{
+	//	MeshActor->SetActorLocation(InitialWorldLocation);
+	//}
 }
 
 FString UGraphEdge::GetEdgeName()

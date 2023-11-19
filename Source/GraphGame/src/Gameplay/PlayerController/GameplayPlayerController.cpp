@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Gameplay/PlayerController/GameplayPlayerController.h"
+#include "Gameplay\PlayerController\GameplayPlayerController.h"
 #include <Camera/CameraActor.h>
 #include <EngineUtils.h>
 #include "Camera/GameplayPlayerCameraManager.h"
@@ -29,9 +29,20 @@ void AGameplayPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("MouseClick", IE_Pressed, this, &ThisClass::OnMouseClick);
 	InputComponent->BindAction("MouseClick", IE_Released, this, &ThisClass::OnMouseReleased);
+	InputComponent->BindAction("RightMouseClick", IE_Pressed, this, &ThisClass::OnRightMouseClick);
+	InputComponent->BindAction("RightMouseClick", IE_Released, this, &ThisClass::OnRightMouseReleased);
 	InputComponent->BindAction("StepAlgorithm", IE_Pressed, this, &ThisClass::StepAlgorithm);
 	InputComponent->BindAction("RunAlgorithm", IE_Pressed, this, &ThisClass::RunAlgorithm);
 	InputComponent->BindAction("Menu", IE_Pressed, this, &ThisClass::HandleMenu);
+}
+
+void AGameplayPlayerController::TickActor(float DeltaTime, enum ELevelTick TickType, FActorTickFunction& ThisTickFunction)
+{
+	Super::TickActor(DeltaTime, TickType, ThisTickFunction);
+	if (bNodeMovingModeActive && GameGraph)
+	{
+		GameGraph->UpdateMovingNodePosition();
+	}
 }
 
 void AGameplayPlayerController::MoveForward(float AxisValue)
@@ -76,7 +87,7 @@ void AGameplayPlayerController::OnMouseClick()
 {
 	if (GameGraph)
 	{
-		GameGraph->OnMouseClick();
+		bNodeMovingModeActive = GameGraph->StartMovingNode();
 	}
 }
 
@@ -84,7 +95,24 @@ void AGameplayPlayerController::OnMouseReleased()
 {
 	if (GameGraph)
 	{
-		GameGraph->OnMouseReleased();
+		GameGraph->StopMovingNode();
+	}
+	bNodeMovingModeActive = false;
+}
+
+void AGameplayPlayerController::OnRightMouseClick()
+{
+	if (GameGraph)
+	{
+		GameGraph->OnRightMouseClick();
+	}
+}
+
+void AGameplayPlayerController::OnRightMouseReleased()
+{
+	if (GameGraph)
+	{
+		GameGraph->OnRightMouseReleased();
 	}
 }
 

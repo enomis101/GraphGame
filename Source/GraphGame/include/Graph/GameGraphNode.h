@@ -32,8 +32,8 @@ public:
 	UPROPERTY(SaveGame)
 	TArray<int32> Edges;
 
-	FORCEINLINE void SetSpawnLocation(FVector InSpawnLocation) { SpawnLocation = InSpawnLocation; }
-	FORCEINLINE FVector GetLocation() { return SpawnLocation; }
+	FORCEINLINE void SetSpawnLocation(FVector InSpawnLocation) { CurrentLocation = InSpawnLocation; }
+	FORCEINLINE FVector GetLocation() { return CurrentLocation; }
 
 	FORCEINLINE int32 GetId() { return Id; }
 	FORCEINLINE int32 GetValue() { return Id; }
@@ -56,6 +56,8 @@ public:
 	void SetAdditionalText(const FString& InString);
 	FString GetNodeName();
 
+	AGraphNodeMeshActor* GetMeshActor() { return MeshActor; }
+	void MoveNode(const FVector& NewLocation);
 	
 protected:
 	// Called when the game starts or when spawned
@@ -73,7 +75,7 @@ protected:
 	TSubclassOf<AGraphNodeMeshActor> MeshClass;
 
 	UPROPERTY(SaveGame)
-		FVector SpawnLocation;
+	FVector CurrentLocation;
 
 	UPROPERTY(SaveGame)
 		int32 Id;

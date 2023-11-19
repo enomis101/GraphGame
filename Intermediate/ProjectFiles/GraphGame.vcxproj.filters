@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\GraphGame.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{1791003F-5DC5-4209-AF70-6A8466C03A4F}</UniqueIdentifier>
+      <UniqueIdentifier>{2E559C94-03F2-4569-B2A5-FCD11322382A}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\GraphGame.Target.cs">
       <Filter>Source</Filter>
@@ -11,8 +11,10 @@
     <None Include="..\..\Source\GraphGameEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.gitignore" />
+    <None Include="..\..\README.md" />
     <Filter Include="Config">
-      <UniqueIdentifier>{5DDD6F6D-94D7-40AB-8878-8A0DFDE18931}</UniqueIdentifier>
+      <UniqueIdentifier>{68ECF6AF-1BB2-429F-B821-6B4054C8932B}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -27,7 +29,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\GraphGame">
-      <UniqueIdentifier>{2A6B0BBA-05A7-4451-AE8F-99965DC60B23}</UniqueIdentifier>
+      <UniqueIdentifier>{4C2134D8-07EA-4364-AA31-9D4A1C1EF611}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\GraphGame\GraphGame.Build.cs">
       <Filter>Source\GraphGame</Filter>
@@ -38,17 +40,11 @@
     <ClInclude Include="..\..\Source\GraphGame\GraphGame.h">
       <Filter>Source\GraphGame</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\GraphGame\GraphGameGameModeBase.cpp">
-      <Filter>Source\GraphGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\GraphGame\GraphGameGameModeBase.h">
-      <Filter>Source\GraphGame</Filter>
-    </ClInclude>
     <Filter Include="Source\GraphGame\include">
-      <UniqueIdentifier>{10426BEF-3EE6-487D-8576-D70D6F296FCC}</UniqueIdentifier>
+      <UniqueIdentifier>{D994F290-76FA-48BC-A754-FABD41984458}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GraphGame\include\Actors">
-      <UniqueIdentifier>{9ED15F4E-FBC4-4A62-8ACC-C51FCC301B6F}</UniqueIdentifier>
+      <UniqueIdentifier>{67A9BD6F-86D6-4B68-8DBD-AE884E19F17D}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Actors\GraphEdgeMeshActor.h">
       <Filter>Source\GraphGame\include\Actors</Filter>
@@ -57,25 +53,25 @@
       <Filter>Source\GraphGame\include\Actors</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\Camera">
-      <UniqueIdentifier>{E6CF7F4B-A06D-42EA-B8B5-02660DF16A48}</UniqueIdentifier>
+      <UniqueIdentifier>{4E520F5F-BA55-4C1C-A60E-5B7DD3BCBA25}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Camera\GameplayPlayerCameraManager.h">
       <Filter>Source\GraphGame\include\Camera</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\Cheat">
-      <UniqueIdentifier>{D7EBD84D-7D34-42E0-BAAB-68A5FF7D9AEA}</UniqueIdentifier>
+      <UniqueIdentifier>{686EBB1C-6957-4454-9AE4-55A8AD45CA68}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Cheat\GameCheatManager.h">
       <Filter>Source\GraphGame\include\Cheat</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\Data">
-      <UniqueIdentifier>{1CEAC36F-BFE4-4FB9-A5FF-FB61332AA851}</UniqueIdentifier>
+      <UniqueIdentifier>{79B9A79F-C6BB-4810-902D-408DD98D5941}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Data\DebugDataAsset.h">
       <Filter>Source\GraphGame\include\Data</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\DataStructures">
-      <UniqueIdentifier>{E57CC71E-8173-42B6-8E5E-AF12F7385619}</UniqueIdentifier>
+      <UniqueIdentifier>{6365B5E1-D987-4C11-94A9-C37E296012AD}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\DataStructures\PriorityQueue.h">
       <Filter>Source\GraphGame\include\DataStructures</Filter>
@@ -84,22 +80,22 @@
       <Filter>Source\GraphGame\include\DataStructures</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\Gameplay">
-      <UniqueIdentifier>{879895C2-B960-4BFF-A4DE-1AE8B2477842}</UniqueIdentifier>
+      <UniqueIdentifier>{0BE3E1AE-82F9-4BA4-A339-E4F4CAFA4BAD}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GraphGame\include\Gameplay\GameMode">
-      <UniqueIdentifier>{6608A068-B534-424D-9CEA-0C150652062B}</UniqueIdentifier>
+      <UniqueIdentifier>{4DE6C45E-F11B-495B-B359-F105B0C89C6D}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Gameplay\GameMode\GameplayGameMode.h">
       <Filter>Source\GraphGame\include\Gameplay\GameMode</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\Gameplay\PlayerController">
-      <UniqueIdentifier>{3E1D6BEA-CEFC-41B2-9CBD-BA269F8ECA3A}</UniqueIdentifier>
+      <UniqueIdentifier>{749AE282-C6D4-42F7-BF48-E3329F38BD5C}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Gameplay\PlayerController\GameplayPlayerController.h">
       <Filter>Source\GraphGame\include\Gameplay\PlayerController</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\Graph">
-      <UniqueIdentifier>{8E3FD962-EAC6-44B1-A614-40F8C2E739A5}</UniqueIdentifier>
+      <UniqueIdentifier>{077D4C09-D488-4FD2-823E-410AF3F83D22}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Graph\GameGraph.h">
       <Filter>Source\GraphGame\include\Graph</Filter>
@@ -117,7 +113,7 @@
       <Filter>Source\GraphGame\include\Graph</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\Graph\Algorithms">
-      <UniqueIdentifier>{9D3C03B7-471E-4851-BD18-D2EA51DFB952}</UniqueIdentifier>
+      <UniqueIdentifier>{32E07D52-88EC-4402-B6A8-553C95CDFFF8}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Graph\Algorithms\BFSGraphAlgorithm.h">
       <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
@@ -147,7 +143,7 @@
       <Filter>Source\GraphGame\include\Graph\Algorithms</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\Save">
-      <UniqueIdentifier>{17745883-46D7-4802-8AF6-C76D3B397534}</UniqueIdentifier>
+      <UniqueIdentifier>{3A225F46-B294-4CC8-B002-AB183E59B1A6}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\Save\GraphSaveGame.h">
       <Filter>Source\GraphGame\include\Save</Filter>
@@ -156,7 +152,7 @@
       <Filter>Source\GraphGame\include\Save</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\include\UI">
-      <UniqueIdentifier>{CCA2A5FE-FBB0-4BE3-BC1D-2CB1A836DE9B}</UniqueIdentifier>
+      <UniqueIdentifier>{6AD0F3B2-4B70-46A6-B3F6-FE993FBF8BED}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\GraphGame\include\UI\AlgorithmInputWidget.h">
       <Filter>Source\GraphGame\include\UI</Filter>
@@ -177,28 +173,28 @@
       <Filter>Source\GraphGame\include\UI</Filter>
     </ClInclude>
     <Filter Include="Source\GraphGame\src">
-      <UniqueIdentifier>{8AC8E365-C978-4F42-9464-7DD0C58481EC}</UniqueIdentifier>
+      <UniqueIdentifier>{5690D670-6510-4572-B2C8-90E2388820BE}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GraphGame\src\Camera">
-      <UniqueIdentifier>{57F912D6-ED54-405C-9A90-1FA453325883}</UniqueIdentifier>
+      <UniqueIdentifier>{CF98B573-E381-4C78-9DDB-4A98CFA3F9CC}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\Camera\GameplayPlayerCameraManager.cpp">
       <Filter>Source\GraphGame\src\Camera</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\Cheat">
-      <UniqueIdentifier>{12626CC3-5FF7-490D-BDA3-C14507F14EF3}</UniqueIdentifier>
+      <UniqueIdentifier>{A90AC7D5-5A01-46A6-92D5-43C175E4CA32}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\Cheat\GameCheatManager.cpp">
       <Filter>Source\GraphGame\src\Cheat</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\Data">
-      <UniqueIdentifier>{60139B04-5714-40DB-9F87-9BC465AF3D3F}</UniqueIdentifier>
+      <UniqueIdentifier>{6063111E-FDCD-45DC-800C-1CCC01AA5B70}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\Data\DebugDataAsset.cpp">
       <Filter>Source\GraphGame\src\Data</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\DataStructures">
-      <UniqueIdentifier>{4888C550-2B55-4974-9F88-CBD081DF9B57}</UniqueIdentifier>
+      <UniqueIdentifier>{5DF66828-120B-49B0-90A8-1424243FAA7C}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\DataStructures\PriorityQueue.cpp">
       <Filter>Source\GraphGame\src\DataStructures</Filter>
@@ -207,22 +203,22 @@
       <Filter>Source\GraphGame\src\DataStructures</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\Gameplay">
-      <UniqueIdentifier>{DBE36E44-5096-46F7-962E-F05C6036F457}</UniqueIdentifier>
+      <UniqueIdentifier>{77FB1477-61C2-4306-8CA2-03CC1CC56B57}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GraphGame\src\Gameplay\GameMode">
-      <UniqueIdentifier>{8FCD53A9-7273-4759-B6CB-27A664048686}</UniqueIdentifier>
+      <UniqueIdentifier>{8589893E-727C-4028-BABB-658D26C547B2}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\Gameplay\GameMode\GameplayGameMode.cpp">
       <Filter>Source\GraphGame\src\Gameplay\GameMode</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\Gameplay\PlayerController">
-      <UniqueIdentifier>{51392704-6E2D-4003-8AB6-266AB2E048CD}</UniqueIdentifier>
+      <UniqueIdentifier>{FF4A98B4-7F46-42BA-8776-EC9B951FED32}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\Gameplay\PlayerController\GameplayPlayerController.cpp">
       <Filter>Source\GraphGame\src\Gameplay\PlayerController</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\Graph">
-      <UniqueIdentifier>{699AE322-E7DC-408E-A042-4B54DE6903EA}</UniqueIdentifier>
+      <UniqueIdentifier>{B519B3BE-C05D-4696-B003-AF41BF89B870}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\Graph\GameGraph.cpp">
       <Filter>Source\GraphGame\src\Graph</Filter>
@@ -237,7 +233,7 @@
       <Filter>Source\GraphGame\src\Graph</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\Graph\Algorithms">
-      <UniqueIdentifier>{94BB8D82-051D-4324-85C6-CD351AB30801}</UniqueIdentifier>
+      <UniqueIdentifier>{E45B79B4-D990-45B1-9E0A-4F976B11B182}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\Graph\Algorithms\BFSGraphAlgorithm.cpp">
       <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
@@ -264,7 +260,7 @@
       <Filter>Source\GraphGame\src\Graph\Algorithms</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\Save">
-      <UniqueIdentifier>{99438917-0D7E-4ADF-B977-903E7E7CE854}</UniqueIdentifier>
+      <UniqueIdentifier>{88160107-7A8C-46B1-A667-00FC3610F9E6}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\Save\GraphSaveGame.cpp">
       <Filter>Source\GraphGame\src\Save</Filter>
@@ -273,7 +269,7 @@
       <Filter>Source\GraphGame\src\Save</Filter>
     </ClCompile>
     <Filter Include="Source\GraphGame\src\UI">
-      <UniqueIdentifier>{9912F3BC-2B17-4E85-9A34-852CE9471806}</UniqueIdentifier>
+      <UniqueIdentifier>{E5F89D75-BC26-44A1-A2EB-4C2CD2978F1B}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\GraphGame\src\UI\AlgorithmInputWidget.cpp">
       <Filter>Source\GraphGame\src\UI</Filter>
